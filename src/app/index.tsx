@@ -9,6 +9,7 @@ import { ThemedView } from '@/components/themed-view';
 import { WebBadge } from '@/components/web-badge';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
 import { GlobalProvider } from '@/contexts/GlobalContext';
+import LoginScreen from '@/components/screens/LoginScreen';
 
 function getDevMenuHint() {
   if (Platform.OS === 'web') {
@@ -23,47 +24,49 @@ function getDevMenuHint() {
   }
   const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
   return (
-    <GlobalProvider>
-      <ThemedText type="small">
-        press <ThemedText type="code">{shortcut}</ThemedText>
-      </ThemedText>
-    </GlobalProvider>
+    <ThemedText type="small">
+      press <ThemedText type="code">{shortcut}</ThemedText>
+    </ThemedText>
   );
 }
 
 export default function HomeScreen() {
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+    <GlobalProvider>
+      <LoginScreen />
+    </GlobalProvider>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
-
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
-
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
-  );
+  )
 }
 
+//   <ThemedView style={styles.container}>
+//     <SafeAreaView style={styles.safeArea}>
+//       <ThemedView style={styles.heroSection}>
+//         <AnimatedIcon />
+//         <ThemedText type="title" style={styles.title}>
+//           Welcome to&nbsp;Expo
+//         </ThemedText>
+//       </ThemedView>
+
+//       <ThemedText type="code" style={styles.code}>
+//         get started
+//       </ThemedText>
+
+//       <ThemedView type="backgroundElement" style={styles.stepContainer}>
+//         <HintRow
+//           title="Try editing"
+//           hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
+//         />
+//         <HintRow title="Dev tools" hint={getDevMenuHint()} />
+//         <HintRow
+//           title="Fresh start"
+//           hint={<ThemedText type="code">npm run reset-project</ThemedText>}
+//         />
+//       </ThemedView>
+
+//       {Platform.OS === 'web' && <WebBadge />}
+//     </SafeAreaView>
+//   </ThemedView>
 const styles = StyleSheet.create({
   container: {
     flex: 1,
