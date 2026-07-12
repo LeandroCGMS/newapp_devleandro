@@ -17,12 +17,12 @@ export default function LoginScreen() {
                 />
             </View>
             <View style={styles.divsLogin}>
-                <Text>Nome de Usuário:</Text>
+                <Text style={styles.text}>Nome de Usuário:</Text>
                 <TextInput
                     value={username}
                     onChangeText={setUsername}
                     placeholder="Digite seu nome de usuário"
-                    style={styles.inputText}
+                    style={[styles.inputText]}
                 />
             </View>
             <View style={styles.divsLogin}>
@@ -31,9 +31,9 @@ export default function LoginScreen() {
                     value={password}
                     onChangeText={setPassword}
                     placeholder="Digite sua senha"
-                    style={styles.inputText}
+                    style={[styles.inputText]}
                     secureTextEntry
-                    
+
                 />
             </View>
             <Text style={{ color: 'white', margin: 20 }}>© {currentYear} Todos os direitos reservados.</Text>
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         borderWidth: 4,
         textColor: 'white',
         borderColor: 'white',
-        backgroundColor: 'grey',
+        backgroundColor: 'black',
         borderRadius: 10,
         margin: 4,
     },
@@ -95,6 +95,8 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         padding: 8,
         marginTop: 8,
+        backgroundColor: 'white',
+        color: 'black'
     },
     text: {
         color: 'white',
