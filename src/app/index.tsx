@@ -8,6 +8,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { WebBadge } from '@/components/web-badge';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { GlobalProvider } from '@/contexts/GlobalContext';
 
 function getDevMenuHint() {
   if (Platform.OS === 'web') {
@@ -22,9 +23,11 @@ function getDevMenuHint() {
   }
   const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
+    <GlobalProvider>
+      <ThemedText type="small">
+        press <ThemedText type="code">{shortcut}</ThemedText>
+      </ThemedText>
+    </GlobalProvider>
   );
 }
 
