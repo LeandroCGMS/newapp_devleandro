@@ -1,5 +1,5 @@
 import { useGlobalContext } from '@/contexts/GlobalContext';
-import { StyleSheet, Text, View, Image, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const currentYear = new Date().getFullYear();
@@ -9,34 +9,44 @@ export default function LoginScreen() {
     console.log('username:', username, 'password:', password);
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.firstBox}>
-                <Image
-                    source={require('../../../assets/images/image-bottom.png')}
-                    style={styles.backgroundImage}
-                    resizeMode="stretch"
-                />
-            </View>
-            <View style={styles.divsLogin}>
-                <Text style={styles.text}>Nome de Usuário:</Text>
-                <TextInput
-                    value={username}
-                    onChangeText={setUsername}
-                    placeholder="Digite seu nome de usuário"
-                    style={[styles.inputText]}
-                />
-            </View>
-            <View style={styles.divsLogin}>
-                <Text style={styles.text}>Senha:</Text>
-                <TextInput
-                    value={password}
-                    onChangeText={setPassword}
-                    placeholder="Digite sua senha"
-                    style={[styles.inputText]}
-                    secureTextEntry
+            <ScrollView
+                style={[{ flex: 1, width: '100%' }]}
+                contentContainerStyle={[{ flexGrow: 1 }, styles.container]}
+            >
+                <View style={styles.firstBox}>
+                    <Image
+                        source={require('../../../assets/images/image-bottom.png')}
+                        style={styles.backgroundImage}
+                        resizeMode="stretch"
+                    />
+                </View>
+                <View style={styles.divsLogin}>
+                    <View style={[styles.viewFields]}>
+                        <Text style={styles.text}>Nome de Usuário:</Text>
+                        <TextInput
+                            value={username}
+                            onChangeText={setUsername}
+                            placeholder="Digite seu nome de usuário"
+                            style={[styles.inputText]}
+                        />
+                    </View>
+                    <View style={[styles.viewFields]}>
+                        <Text style={styles.text}>Senha:</Text>
+                        <TextInput
+                            value={password}
+                            onChangeText={setPassword}
+                            placeholder="Digite sua senha"
+                            style={[styles.inputText]}
+                            secureTextEntry
 
-                />
-            </View>
-            <Text style={{ color: 'white', margin: 20 }}>© {currentYear} Todos os direitos reservados.</Text>
+                        />
+                    </View>
+                </View>
+                <View style={styles.divsLogin}>
+                </View>
+                <Text style={{ color: 'white', marginTop: 5 }}>© {currentYear} Leandro Santos de Carvalho.</Text>
+                <Text style={{ color: 'white', marginBottom: 5 }}>Todos os direitos reservados.</Text>
+            </ScrollView>
         </SafeAreaView>
     )
 }
@@ -94,13 +104,14 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderRadius: 4,
         padding: 8,
-        marginTop: 8,
         backgroundColor: 'white',
         color: 'black'
     },
     text: {
         color: 'white',
         fontSize: 16,
-        marginBottom: 8,
+    },
+    viewFields: {
+        marginBottom: 10
     }
 })
