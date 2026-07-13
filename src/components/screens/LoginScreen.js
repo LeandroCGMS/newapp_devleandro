@@ -1,19 +1,24 @@
 import { useGlobalContext } from '@/contexts/GlobalContext';
-import { StyleSheet, Text, View, Image, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, ScrollView, TouchableOpacity, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useState } from 'react';
+import Feather from '@expo/vector-icons/Feather';
 
 const currentYear = new Date().getFullYear();
 
 export default function LoginScreen() {
     const { username, password, setUsername, setPassword, user, setUser } = useGlobalContext();
+    const [inputHeight, setInputHeight] = useState(0);
+    const [showPassword, setShowPassword] = useState(false);
+
     console.log('username:', username, 'password:', password);
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView
-                style={[{ flex: 1, width: '100%' }]}
-                contentContainerStyle={[{ flexGrow: 1 }, styles.container]}
+                style={[{ flex: 1, width: '100%', }]}
+                contentContainerStyle={[{ flexGrow: 1, height: '110%' }, styles.container]}
             >
-                <View style={styles.firstBox}>
+                <View style={styles.divsLogin}>
                     <Image
                         source={require('../../../assets/images/image-bottom.png')}
                         style={styles.backgroundImage}
@@ -26,23 +31,42 @@ export default function LoginScreen() {
                         <TextInput
                             value={username}
                             onChangeText={setUsername}
-                            placeholder="Digite seu nome de usuário"
+                            placeholder="Digite seu nome de usuário (usuario ≠ Usuario ≠ USUARIO)"
                             style={[styles.inputText]}
                         />
                     </View>
                     <View style={[styles.viewFields]}>
                         <Text style={styles.text}>Senha:</Text>
-                        <TextInput
-                            value={password}
-                            onChangeText={setPassword}
-                            placeholder="Digite sua senha"
-                            style={[styles.inputText]}
-                            secureTextEntry
-
-                        />
+                        <View style={styles.passwordRow}>
+                            <TextInput
+                                value={password}
+                                onChangeText={setPassword}
+                                placeholder="Digite sua senha (senha ≠ Senha ≠ SENHA)"
+                                style={[styles.inputText]}
+                                onLayout={(event) => {
+                                    const { height } = event.nativeEvent.layout;
+                                    setInputHeight(height);
+                                }}
+                                secureTextEntry={!showPassword}
+                                autoCapitalize="none"
+                            />
+                            <TouchableOpacity
+                                onPress={() => setShowPassword((s) => !s)}
+                                style={{ height: inputHeight, width: 38, marginTop: - (inputHeight), marginLeft: 4 }}
+                                accessibilityLabel={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
+                            >
+                                <Feather name={showPassword ? 'eye' : 'eye-off'} size={inputHeight} color="black" />
+                            </TouchableOpacity>
+                            <Button title="TESTE" />
+                        </View>
                     </View>
                 </View>
                 <View style={styles.divsLogin}>
+                    <Image
+                        source={require('../../../assets/images/my-logo.png')}
+                        style={styles.backgroundImage}
+                        resizeMode="stretch"
+                    />
                 </View>
                 <Text style={{ color: 'white', marginTop: 5 }}>© {currentYear} Leandro Santos de Carvalho.</Text>
                 <Text style={{ color: 'white', marginBottom: 5 }}>Todos os direitos reservados.</Text>
@@ -76,6 +100,7 @@ const styles = StyleSheet.create({
         ...StyleSheet.absoluteFillObject,
         width: '100%',
         height: '100%',
+        borderRadius: 5,
     },
     overlayText: {
         color: 'white',
@@ -95,7 +120,7 @@ const styles = StyleSheet.create({
         borderWidth: 4,
         textColor: 'white',
         borderColor: 'white',
-        backgroundColor: 'black',
+        backgroundColor: 'white',
         borderRadius: 10,
         margin: 4,
     },
@@ -105,7 +130,9 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         padding: 8,
         backgroundColor: 'white',
-        color: 'black'
+        color: 'black',
+        textAlign: 'center',
+        fontSize: 20
     },
     text: {
         color: 'white',
