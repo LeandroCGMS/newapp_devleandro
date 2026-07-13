@@ -31,7 +31,7 @@ export default function LoginScreen() {
                         <TextInput
                             value={username}
                             onChangeText={setUsername}
-                            placeholder="Digite seu nome de usuário (usuario ≠ Usuario ≠ USUARIO)"
+                            placeholder={`Digite seu nome de usuário (usuario ≠ \nUsuario ≠ USUARIO)`}
                             style={[styles.inputText]}
                         />
                     </View>
@@ -41,8 +41,8 @@ export default function LoginScreen() {
                             <TextInput
                                 value={password}
                                 onChangeText={setPassword}
-                                placeholder="Digite sua senha (senha ≠ Senha ≠ SENHA)"
-                                style={[styles.inputText]}
+                                placeholder={`Digite sua senha (senha ≠ \nSenha ≠ SENHA)`}
+                                style={[styles.inputText, {paddingLeft: 50}]}
                                 onLayout={(event) => {
                                     const { height } = event.nativeEvent.layout;
                                     setInputHeight(height);
@@ -52,10 +52,10 @@ export default function LoginScreen() {
                             />
                             <TouchableOpacity
                                 onPress={() => setShowPassword((s) => !s)}
-                                style={{ height: inputHeight, width: 38, marginTop: - (inputHeight), marginLeft: 4 }}
+                                style={{ height: inputHeight, width: 75, marginTop: - (inputHeight), marginLeft: 4, justifyContent: 'center', alignItems: 'center', borderRadius: 4 }}
                                 accessibilityLabel={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
                             >
-                                <Feather name={showPassword ? 'eye' : 'eye-off'} size={inputHeight} color="black" />
+                                <Feather name={showPassword ? 'eye-off' : 'eye'} size={inputHeight} color="black" />
                             </TouchableOpacity>
                             <Button title="TESTE" />
                         </View>
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
         borderWidth: 4,
         textColor: 'white',
         borderColor: 'white',
-        backgroundColor: 'white',
+        backgroundColor: 'black',
         borderRadius: 10,
         margin: 4,
     },
