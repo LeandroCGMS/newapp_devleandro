@@ -33,7 +33,7 @@ function getDevMenuHint() {
 export default function HomeScreen() {
   return (
     <GlobalProvider>
-        <LoginScreen />
+      <LoginScreen />
     </GlobalProvider>
 
   )

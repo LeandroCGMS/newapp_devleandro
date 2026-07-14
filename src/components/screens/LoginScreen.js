@@ -3,15 +3,19 @@ import { StyleSheet, Text, View, Image, TextInput, ScrollView, TouchableOpacity,
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
 import Feather from '@expo/vector-icons/Feather';
+import HomeScreen from '@/components/screens/HomeScreen';
 
 const currentYear = new Date().getFullYear();
 
 export default function LoginScreen() {
-    const { username, password, setUsername, setPassword, user, setUser } = useGlobalContext();
+    const { username, password, setUsername, setPassword, user, setUser, homeScreen, setHomeScreen } = useGlobalContext();
     const [inputHeight, setInputHeight] = useState(0);
     const [showPassword, setShowPassword] = useState(false);
 
     console.log('username:', username, 'password:', password);
+    if(homeScreen){
+        return <HomeScreen/>
+    }
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView
@@ -57,7 +61,7 @@ export default function LoginScreen() {
                             >
                                 <Feather name={showPassword ? 'eye-off' : 'eye'} size={inputHeight} color="black" />
                             </TouchableOpacity>
-                            <Button title="TESTE" />
+                            <Button title="TESTE" onPress={() => {setHomeScreen(true) }}/>
                         </View>
                     </View>
                 </View>
