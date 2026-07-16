@@ -21,8 +21,8 @@ export default function HomeScreen() {
                 },
             }}>
             {/* Optionally configure static options outside the route.*/}
-            <Stack.Screen name="ThirdScreen" component={ThirdScreen} />
-            <Stack.Screen name="FourthScreen" component={FourthScreen} />
+            <Stack.Screen name="thirdscreen" />
+            {/* <Stack.Screen name="FourthScreen" component={FourthScreen} /> */}
         </Stack>
     )
 }

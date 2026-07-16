@@ -6,7 +6,7 @@ import Feather from '@expo/vector-icons/Feather';
 
 export default function ThirdScreen() {
     return(
-        <View style={styles.container}>
+        <View>
             <Text>Terceira Tela</Text>
         </View>
     )

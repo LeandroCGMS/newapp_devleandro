@@ -1,3 +1,23 @@
+#  16/07/2026
+Removidas telas Index e Explore das Abas de Navegação Expo, com o código a seguir:
+```jsx
+<Tabs.Screen
+        name="index"
+        options={{
+          title: 'Home',
+          href: null, // 👈 Isso esconde o botão da barra inferior completamente!
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="explore"
+        options={{
+          title: 'Explore',
+          href: null, // 👈 Esconde o botão da barra inferior
+        }}
+      />
+```
+
 # NewApp DevLeandro
    Criado em 12/07/2026.
    Este app já foi criado e "buildado" para os servidores da Expo, com o link abaixo:
