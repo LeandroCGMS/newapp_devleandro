@@ -1,5 +1,5 @@
 #  16/07/2026
-Removidas telas Index e Explore das Abas de Navegação Expo, com o código a seguir:
+### Removidas telas Index e Explore das Abas de Navegação Expo, com o código a seguir:
 ```jsx
 <Tabs.Screen
         name="index"
@@ -16,6 +16,10 @@ Removidas telas Index e Explore das Abas de Navegação Expo, com o código a se
           href: null, // 👈 Esconde o botão da barra inferior
         }}
       />
+```
+### Comando para compilar APK Release, sem precisar carregar do servidor Metro:
+```bash
+eas build --platform android --profile preview 
 ```
 
 # NewApp DevLeandro
