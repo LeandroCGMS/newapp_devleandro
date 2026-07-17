@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
 import Feather from '@expo/vector-icons/Feather';
 import HomeScreen from '@/components/screens/HomeScreen';
+import { useRouter } from 'expo-router';
 
 const currentYear = new Date().getFullYear();
 
@@ -13,8 +14,10 @@ export default function LoginScreen() {
     const [showPassword, setShowPassword] = useState(false);
 
     console.log('username:', username, 'password:', password);
+    const router = useRouter();
     if(homeScreen){
-        return <HomeScreen/>
+        
+        //return <HomeScreen/>
     }
     return (
         <SafeAreaView style={styles.container}>
@@ -61,7 +64,7 @@ export default function LoginScreen() {
                             >
                                 <Feather name={showPassword ? 'eye-off' : 'eye'} size={inputHeight} color="black" />
                             </TouchableOpacity>
-                            <Button title="TESTE" onPress={() => {setHomeScreen(true) }}/>
+                            <Button title="TESTE" onPress={() => {router.replace('/(tabs)/thirdscreen'); }}/>
                         </View>
                     </View>
                 </View>
