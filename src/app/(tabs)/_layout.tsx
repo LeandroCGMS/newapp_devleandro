@@ -21,12 +21,6 @@ SplashScreen.preventAutoHideAsync();
 // }
 
 export default function TabLayout() {
-	useEffect(() => {
-		// Força a splash screen a sumir assim que o layout raiz for montado
-		SplashScreen.hideAsync().catch(() => {
-			/* ignora erros caso já tenha fechado */
-		});
-	}, []);
 	return (
 		<Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
 			<Tabs.Screen
