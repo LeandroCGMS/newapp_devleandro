@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useColorScheme } from 'react-native';
@@ -20,6 +21,12 @@ SplashScreen.preventAutoHideAsync();
 // }
 
 export default function TabLayout() {
+	useEffect(() => {
+		// Força a splash screen a sumir assim que o layout raiz for montado
+		SplashScreen.hideAsync().catch(() => {
+			/* ignora erros caso já tenha fechado */
+		});
+	}, []);
 	return (
 		<Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
 			<Tabs.Screen

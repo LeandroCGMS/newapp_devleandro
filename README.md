@@ -1,3 +1,18 @@
+# 19/07/2026
+### Comando para buildar o modo preview no EAS:
+```bash
+eas build --platform android --profile preview
+```
+### Linhas abaixo adicionadas para ocultar tela Splah:
+```jsx
+useEffect(() => {
+		// Força a splash screen a sumir assim que o layout raiz for montado
+		SplashScreen.hideAsync().catch(() => {
+			/* ignora erros caso já tenha fechado */
+		});
+	}, []);
+```
+
 #  16/07/2026
 ### Removidas telas Index e Explore das Abas de Navegação Expo, com o código a seguir:
 ```jsx
