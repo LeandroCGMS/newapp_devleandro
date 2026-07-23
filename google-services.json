@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "570758843155",
+    "project_id": "devleandro-c6a3a",
+    "storage_bucket": "devleandro-c6a3a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570758843155:android:4d18975c4e164dc92628e6",
+        "android_client_info": {
+          "package_name": "com.lecgms.newapp_devleandro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmzsx2XN_-VsPGl6J21vxlU2OeEiGcf-E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

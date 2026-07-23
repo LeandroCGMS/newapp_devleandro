@@ -24,7 +24,8 @@
         "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.INTERNET"
       ],
-      "package": "com.lecgms.newapp_devleandro"
+      "package": "com.lecgms.newapp_devleandro",
+      "googleServicesFile": "./google-services.json" // 👈 Coloque AQUI
     },
     "web": {
       "output": "static",
