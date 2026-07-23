@@ -35,6 +35,16 @@ Este app foi configurado e compilado (*buildado*) nos servidores do **EAS (Expo 
 
 <br />
 
+## 🚨 Informações importantes
+### Comando para evitar problemas com sendbox
+```bash
+ELECTRON_DISABLE_SANDBOX=1 npx expo start         
+```
+### Comando para Buildar no EAS da Expo
+```bash
+eas build --platform android --profile preview 
+```
+
 ---
 
 ## 📌 Histórico de Desenvolvimento
