@@ -47,43 +47,45 @@ export default function LoginScreen() {
                     />
                 </View>
                 <View style={styles.divsLogin}>
-                    <View style={[styles.viewFields]}>
-                        <Text style={styles.text}>Nome de Usuário:</Text>
-                        <TextInput
-                            value={username}
-                            onChangeText={setUsername}
-                            placeholder={`Digite seu nome de usuário (usuario ≠ \nUsuario ≠ USUARIO)`}
-                            maxLength={20}
-                            style={[styles.inputText]}
-                        />
-                    </View>
-                    <View style={[styles.viewFields]}>
-                        <Text style={styles.text}>Senha:</Text>
-                        <View style={styles.passwordRow}>
+                    <ScrollView>
+                        <View style={[styles.viewFields]}>
+                            <Text style={styles.text}>Nome de Usuário:</Text>
                             <TextInput
-                                value={password}
-                                onChangeText={setPassword}
-                                placeholder={`Digite sua senha (senha ≠ \nSenha ≠ SENHA)`}
-                                style={[styles.inputText, { paddingLeft: 50 }]}
-                                onLayout={(event) => {
-                                    const { height } = event.nativeEvent.layout;
-                                    setInputHeight(height);
-                                }}
-                                secureTextEntry={!showPassword}
-                                autoCapitalize="none"
+                                value={username}
+                                onChangeText={setUsername}
+                                placeholder={`usuario ≠ \nUsuario ≠ USUARIO`}
                                 maxLength={20}
+                                style={[styles.inputText]}
                             />
-                            <TouchableOpacity
-                                onPress={() => setShowPassword((s) => !s)}
-                                style={{ backgroundColor: 'lightgray', borderColor: 'gray', height: inputHeight, width: 75, marginTop: - (inputHeight), marginLeft: 0, justifyContent: 'center', alignItems: 'center', borderRadius: 4 }}
-                                accessibilityLabel={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
-                            >
-                                <Feather style={{  }} name={showPassword ? 'eye-off' : 'eye'} size={inputHeight} color="black" />
-                            </TouchableOpacity>
-                            <Button title="TESTE" onPress={() => { router.replace('/(tabs)/thirdscreen'); }} />
-                            <Button color="red" title="Logando com o Google" onPress={() => { }} />
                         </View>
-                    </View>
+                        <View style={[styles.viewFields]}>
+                            <Text style={styles.text}>Senha:</Text>
+                            <View style={styles.passwordRow}>
+                                <TextInput
+                                    value={password}
+                                    onChangeText={setPassword}
+                                    placeholder={`senha ≠ \nSenha ≠ SENHA`}
+                                    style={[styles.inputText, { paddingLeft: 50 }]}
+                                    onLayout={(event) => {
+                                        const { height } = event.nativeEvent.layout;
+                                        setInputHeight(height);
+                                    }}
+                                    secureTextEntry={!showPassword}
+                                    autoCapitalize="none"
+                                    maxLength={20}
+                                />
+                                <TouchableOpacity
+                                    onPress={() => setShowPassword((s) => !s)}
+                                    style={{ backgroundColor: showPassword? '#EE4B2B': '#AAFF00', borderColor: 'gray', height: inputHeight, width: 75, marginTop: - (inputHeight), marginLeft: 0, justifyContent: 'center', alignItems: 'center', borderRadius: 4 }}
+                                    accessibilityLabel={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
+                                >
+                                    <Feather style={{}} name={showPassword ? 'eye-off' : 'eye'} size={inputHeight} color="black" />
+                                </TouchableOpacity>
+                                <Button title="TESTE" onPress={() => { router.replace('/(tabs)/thirdscreen'); }} />
+                                <Button color="red" title="Logando com o Google" onPress={() => { }} />
+                            </View>
+                        </View>
+                    </ScrollView>
                 </View>
                 <View style={styles.divsLogin}>
                     <Image
