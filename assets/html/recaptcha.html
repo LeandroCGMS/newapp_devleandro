@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfUDVQeAAAAAAfI1-Hf3Sz9ZT56MMr-PDQO5vaG"></script>
+    <title>Google reCAPTCHA</title>
+</head>
+<body>
+    <script>
+        function executeRecaptcha() {
+            grecaptcha.ready(function() {
+                grecaptcha.execute("6LfUDVQeAAAAAAfI1-Hf3Sz9ZT56MMr-PDQO5vaG", { action: "submit" }).then(function(token) {
+                    // Enviar o token de volta para o React Native via postMessage
+                    window.ReactNativeWebView.postMessage(token);
+                });
+            });
+        }
+
+        // Executar o reCAPTCHA automaticamente ao carregar a página
+        window.onload = executeRecaptcha;
+    </script>
+</body>
+</html>

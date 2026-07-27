@@ -10,6 +10,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../config/firebase';
 import * as Google from 'expo-auth-session/providers/google';
 import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
+import { WebView, WebViewMessageEvent } from 'react-native-webview';
 
 // const handleLogin = async (email, password) => {
 //     try {
@@ -76,7 +77,7 @@ export default function LoginScreen() {
                                 />
                                 <TouchableOpacity
                                     onPress={() => setShowPassword((s) => !s)}
-                                    style={{ backgroundColor: showPassword? '#EE4B2B': '#AAFF00', borderColor: 'gray', height: inputHeight, width: 75, marginTop: - (inputHeight), marginLeft: 0, justifyContent: 'center', alignItems: 'center', borderRadius: 4 }}
+                                    style={{ backgroundColor: showPassword ? '#EE4B2B' : '#AAFF00', borderColor: 'gray', height: inputHeight, width: 75, marginTop: - (inputHeight), marginLeft: 0, justifyContent: 'center', alignItems: 'center', borderRadius: 4 }}
                                     accessibilityLabel={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
                                 >
                                     <Feather style={{}} name={showPassword ? 'eye-off' : 'eye'} size={inputHeight} color="black" />
@@ -94,8 +95,7 @@ export default function LoginScreen() {
                         resizeMode="stretch"
                     />
                 </View>
-                <Text style={{ color: 'white', marginTop: 5 }}>© {currentYear} Leandro Santos de Carvalho.</Text>
-                <Text style={{ color: 'white', marginBottom: 5 }}>Todos os direitos reservados.</Text>
+                <WebView></WebView>
             </ScrollView>
         </SafeAreaView>
     )

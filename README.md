@@ -35,7 +35,16 @@ Este app foi configurado e compilado (*buildado*) nos servidores do **EAS (Expo 
 
 <br />
 
-## 🚨 Informações importantes
+# 🚨 Informações importantes
+### Os 2 Comandos para gerar APK Debug e Release
+#### Modo Release
+```bash
+eas build --platform android --profile preview --no-wait
+```
+#### Modo Debug
+```bash
+eas build --platform android --profile development --no-wait
+```
 ### Comando para evitar problemas com sendbox
 ```bash
 ELECTRON_DISABLE_SANDBOX=1 npx # ou
@@ -56,16 +65,12 @@ eas build --platform android --profile preview
 <br>
 <br>
 
+# 27/07/2026
+* Para pegar o Token do Google Recaptcha V3, precisa pegar no site: <span style="color: green;">https://devleandrocgms.online/recaptcha-google</span> e rodar a função <strong style="color: red;">generateGoogleToken()</strong>, com um WebView, para qualquer tipo de requisição ao site, só não para as rotas de ferramentas de terceiros, como o PGAdmin.
+* Está sendo usada a conta validador_web do Google Recaptcha V3 e uma página HTML, para que o aplicativo não fique inoperante, caso meu site fique.
+
 # 26/07/2026
-### Os 2 Comandos para gerar APK Debug e Release
-#### Modo Release
-```bash
-eas build --platform android --profile preview --no-wait
-```
-#### Modo Debug
-```bash
-eas build --platform android --profile development --no-wait
-```
+
 ### O Arquivo eas.json foi alterado para:
 ```json
 {
