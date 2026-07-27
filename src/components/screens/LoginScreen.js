@@ -53,6 +53,7 @@ export default function LoginScreen() {
                             value={username}
                             onChangeText={setUsername}
                             placeholder={`Digite seu nome de usuário (usuario ≠ \nUsuario ≠ USUARIO)`}
+                            maxLength={20}
                             style={[styles.inputText]}
                         />
                     </View>
@@ -70,16 +71,17 @@ export default function LoginScreen() {
                                 }}
                                 secureTextEntry={!showPassword}
                                 autoCapitalize="none"
+                                maxLength={20}
                             />
                             <TouchableOpacity
                                 onPress={() => setShowPassword((s) => !s)}
-                                style={{ height: inputHeight, width: 75, marginTop: - (inputHeight), marginLeft: 4, justifyContent: 'center', alignItems: 'center', borderRadius: 4 }}
+                                style={{ backgroundColor: 'lightgray', borderColor: 'gray', height: inputHeight, width: 75, marginTop: - (inputHeight), marginLeft: 0, justifyContent: 'center', alignItems: 'center', borderRadius: 4 }}
                                 accessibilityLabel={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
                             >
-                                <Feather name={showPassword ? 'eye-off' : 'eye'} size={inputHeight} color="black" />
+                                <Feather style={{  }} name={showPassword ? 'eye-off' : 'eye'} size={inputHeight} color="black" />
                             </TouchableOpacity>
                             <Button title="TESTE" onPress={() => { router.replace('/(tabs)/thirdscreen'); }} />
-                            <Button color="red" title="Logando com o Google" onPress={() => {  }} />
+                            <Button color="red" title="Logando com o Google" onPress={() => { }} />
                         </View>
                     </View>
                 </View>
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         color: 'black',
         textAlign: 'center',
-        fontSize: 20
+        fontSize: 12
     },
     text: {
         color: 'white',
