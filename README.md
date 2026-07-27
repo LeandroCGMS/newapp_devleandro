@@ -42,6 +42,7 @@ Este app foi configurado e compilado (*buildado*) nos servidores do **EAS (Expo 
 eas build --platform android --profile preview --no-wait
 ```
 #### Modo Debug
+[Último Build](https://expo.dev/accounts/lecgms/projects/newapp_devleandro/builds/440fc5e7-d39f-4894-b61d-a90e79c77603)
 ```bash
 eas build --platform android --profile development --no-wait
 ```
