@@ -60,11 +60,11 @@ eas build --platform android --profile preview
 ### Os 2 Comandos para gerar APK Debug e Release
 #### Modo Release
 ```bash
-eas build --platform android --profile preview
+eas build --platform android --profile preview --no-wait
 ```
 #### Modo Debug
 ```bash
-eas build --platform android --profile development
+eas build --platform android --profile development --no-wait
 ```
 ### O Arquivo eas.json foi alterado para:
 ```json
