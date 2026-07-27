@@ -64,7 +64,7 @@ eas build --platform android --profile preview
 ```
 #### Modo Debug
 ```bash
-eas build --platform android --profile debug
+eas build --platform android --profile development
 ```
 ### O Arquivo eas.json foi alterado para:
 ```json
