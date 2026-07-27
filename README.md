@@ -38,7 +38,8 @@ Este app foi configurado e compilado (*buildado*) nos servidores do **EAS (Expo 
 ## 🚨 Informações importantes
 ### Comando para evitar problemas com sendbox
 ```bash
-ELECTRON_DISABLE_SANDBOX=1 npx expo start         
+ELECTRON_DISABLE_SANDBOX=1 npx # ou
+ELECTRON_DISABLE_SANDBOX=1 npx expo start --clear # para quando precisar rebuildar o app debug ou release com bibliotecas nativas e reiniciar o Metro Bundler
 ```
 ### Comando para Buildar no EAS da Expo
 ```bash
@@ -54,6 +55,47 @@ eas build --platform android --profile preview
 <br>
 <br>
 <br>
+
+# 26/07/2026
+### Os 2 Comandos para gerar APK Debug e Release
+#### Modo Release
+```bash
+eas build --platform android --profile preview
+```
+#### Modo Debug
+```bash
+eas build --platform android --profile debug
+```
+### O Arquivo eas.json foi alterado para:
+```json
+{
+  "cli": {
+    "version": ">= 15.0.14",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {
+      "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
+```
 
 # 23/07/2026 Informações sobre o Firebase, suas configurações e chamadas do restante do app
 ### 4. Como consumir no restante do seu app

@@ -1,10 +1,24 @@
 import { useGlobalContext } from '@/contexts/GlobalContext';
 import { StyleSheet, Text, View, Image, TextInput, ScrollView, TouchableOpacity, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Feather from '@expo/vector-icons/Feather';
 import HomeScreen from '@/components/screens/HomeScreen';
 import { useRouter } from 'expo-router';
+// Exemplo em qualquer tela (ex: app/index.tsx)
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../../config/firebase';
+import * as Google from 'expo-auth-session/providers/google';
+import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
+
+// const handleLogin = async (email, password) => {
+//     try {
+//         const userCredential = await signInWithEmailAndPassword(auth, email, password);
+//         console.log("Usuário logado:", userCredential.user.uid);
+//     } catch (error) {
+//         console.error("Erro no login:", error);
+//     }
+// };
 
 const currentYear = new Date().getFullYear();
 
@@ -15,8 +29,8 @@ export default function LoginScreen() {
 
     console.log('username:', username, 'password:', password);
     const router = useRouter();
-    if(homeScreen){
-        
+    if (homeScreen) {
+
         //return <HomeScreen/>
     }
     return (
@@ -49,7 +63,7 @@ export default function LoginScreen() {
                                 value={password}
                                 onChangeText={setPassword}
                                 placeholder={`Digite sua senha (senha ≠ \nSenha ≠ SENHA)`}
-                                style={[styles.inputText, {paddingLeft: 50}]}
+                                style={[styles.inputText, { paddingLeft: 50 }]}
                                 onLayout={(event) => {
                                     const { height } = event.nativeEvent.layout;
                                     setInputHeight(height);
@@ -64,7 +78,8 @@ export default function LoginScreen() {
                             >
                                 <Feather name={showPassword ? 'eye-off' : 'eye'} size={inputHeight} color="black" />
                             </TouchableOpacity>
-                            <Button title="TESTE" onPress={() => {router.replace('/(tabs)/thirdscreen'); }}/>
+                            <Button title="TESTE" onPress={() => { router.replace('/(tabs)/thirdscreen'); }} />
+                            <Button color="red" title="Logando com o Google" onPress={() => {  }} />
                         </View>
                     </View>
                 </View>

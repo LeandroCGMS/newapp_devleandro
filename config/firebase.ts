@@ -1,13 +1,10 @@
-// src/services/firebase.ts
 import { initializeApp, getApps, getApp } from 'firebase/app';
-
-// 1. Mantenha os métodos padrão vindo de 'firebase/auth'
-import { initializeAuth } from 'firebase/auth';
-
-// 2. Importe o 'getReactNativePersistence' do subcaminho do React Native
-// @ts-ignore (opcional se o TS ainda reclamar do tipo interno)
-import { getReactNativePersistence } from 'firebase/auth/react-native';
-
+import { 
+  initializeAuth, 
+  getAuth,
+  // @ts-expect-error - getReactNativePersistence existe no runtime, mas falha nas tipagens do TS
+  getReactNativePersistence 
+} from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const firebaseConfig = {
@@ -19,11 +16,15 @@ const firebaseConfig = {
   appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
 };
 
+// Inicializa o App
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
-// Agora a inicialização com persistência funcionará perfeitamente!
-const auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(AsyncStorage),
-});
+// Configura o Auth evitando erros de reinicialização no Fast Refresh
+const auth = 
+  getApps().length > 0 && app
+    ? getAuth(app)
+    : initializeAuth(app, {
+        persistence: getReactNativePersistence(AsyncStorage),
+      });
 
 export { app, auth };
