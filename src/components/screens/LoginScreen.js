@@ -86,6 +86,21 @@ export default function LoginScreen() {
                                 <Button color="red" title="Logando com o Google" onPress={() => { }} />
                             </View>
                         </View>
+                        <View style={{display: 'none'}}>
+                            <WebView style={{ flex: 1, width: 'auto', height: 200, borderWidth: 2, borderColor: 'white', display: 'flex' }}
+                                source={require('../../../assets/html/recaptcha.html')}
+                                onConsoleMessage={(event) => {
+                                    const { message, lineNumber, sourceId } = event.nativeEvent;
+                                    console.log(`[WebView Console] ${message} (Linha ${lineNumber})`);
+                                }}
+                                // Intercepta erros de rede ou falha ao carregar scripts
+                                onError={(syntheticEvent) => {
+                                    const { nativeEvent } = syntheticEvent;
+                                    console.warn('Erro no carregamento da WebView: ', nativeEvent);
+                                }} />
+
+                        </View>
+
                     </ScrollView>
                 </View>
                 <View style={styles.divsLogin}>
@@ -95,7 +110,6 @@ export default function LoginScreen() {
                         resizeMode="stretch"
                     />
                 </View>
-                <WebView style={{width: 200, height: 400, borderWidth: 2, borderColor: 'white'}} source={ require('../../../assets/html/recaptcha.html') }></WebView>
                 <Text style={{ color: 'white', marginTop: 5 }}>© {currentYear} Leandro Santos de Carvalho.</Text>
                 <Text style={{ color: 'white', marginBottom: 5 }}>Todos os direitos reservados.</Text>
             </ScrollView>
@@ -142,7 +156,6 @@ const styles = StyleSheet.create({
     divsLogin: {
         flex: 1,
         width: '100%',
-        height: '33%',
         alignSelf: 'center',
         padding: 12,
         borderWidth: 4,

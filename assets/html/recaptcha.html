@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://www.google.com/recaptcha/api.js?render=6LfUDVQeAAAAAAfI1-Hf3Sz9ZT56MMr-PDQO5vaG"></script>
     <title>Google reCAPTCHA</title>
 </head>
+<style>
+    /* Estilo para reposicionar o selo do reCAPTCHA */
+    .grecaptcha-badge {
+        position: absolute !important;
+        bottom: 10px !important;
+        right: 10px !important;
+        bottom: auto !important;
+        left: auto !important;
+        z-index: 999999 !important;
+    }
+</style>
+
 <body>
+    <div>
+        <h1>Esta página é para gerar o token do reCAPTCHA</h1>
+    </div>
     <script>
         function executeRecaptcha() {
-            grecaptcha.ready(function() {
-                grecaptcha.execute("6LfUDVQeAAAAAAfI1-Hf3Sz9ZT56MMr-PDQO5vaG", { action: "submit" }).then(function(token) {
+            grecaptcha.ready(function () {
+                grecaptcha.execute("6LfUDVQeAAAAAAfI1-Hf3Sz9ZT56MMr-PDQO5vaG", { action: "submit" }).then(function (token) {
                     // Enviar o token de volta para o React Native via postMessage
                     window.ReactNativeWebView.postMessage(token);
                 });
@@ -21,4 +37,5 @@
         window.onload = executeRecaptcha;
     </script>
 </body>
+
 </html>
