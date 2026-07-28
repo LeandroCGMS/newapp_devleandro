@@ -9,9 +9,10 @@ export const GlobalProvider = ({ children }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [homeScreen, setHomeScreen] = useState(false)
+  const [googleToken, setGoogleToken] = useState(null)
 
   return (
-    <GlobalContext.Provider value={{ username, password, setUsername, setPassword, user, setUser, homeScreen, setHomeScreen }}>
+    <GlobalContext.Provider value={{ username, password, setUsername, setPassword, user, setUser, homeScreen, setHomeScreen, googleToken, setGoogleToken }}>
       {children}
     </GlobalContext.Provider>
   );

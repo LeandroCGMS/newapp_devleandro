@@ -24,7 +24,7 @@ import { WebView, WebViewMessageEvent } from 'react-native-webview';
 const currentYear = new Date().getFullYear();
 
 export default function LoginScreen() {
-    const { username, password, setUsername, setPassword, user, setUser, homeScreen, setHomeScreen } = useGlobalContext();
+    const { username, password, setUsername, setPassword, user, setUser, homeScreen, setHomeScreen, googleToken, setGoogleToken } = useGlobalContext();
     const [inputHeight, setInputHeight] = useState(0);
     const [showPassword, setShowPassword] = useState(false);
 
@@ -97,7 +97,9 @@ export default function LoginScreen() {
                                 onError={(syntheticEvent) => {
                                     const { nativeEvent } = syntheticEvent;
                                     console.warn('Erro no carregamento da WebView: ', nativeEvent);
-                                }} />
+                                }}
+                                onMessage={(token) => {console.warn('o TOKEN GERADO É: ', token)}}
+                                />
 
                         </View>
 
