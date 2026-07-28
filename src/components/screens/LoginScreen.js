@@ -54,7 +54,7 @@ export default function LoginScreen() {
                             <TextInput
                                 value={username}
                                 onChangeText={setUsername}
-                                placeholder={`usuario ≠ \nUsuario ≠ USUARIO`}
+                                placeholder={`usuario ≠ Usuario ≠ USUARIO`}
                                 maxLength={20}
                                 style={[styles.inputText]}
                             />
@@ -65,7 +65,7 @@ export default function LoginScreen() {
                                 <TextInput
                                     value={password}
                                     onChangeText={setPassword}
-                                    placeholder={`senha ≠ \nSenha ≠ SENHA`}
+                                    placeholder={`senha ≠ Senha ≠ SENHA`}
                                     style={[styles.inputText, { paddingLeft: 50 }]}
                                     onLayout={(event) => {
                                         const { height } = event.nativeEvent.layout;
@@ -95,7 +95,9 @@ export default function LoginScreen() {
                         resizeMode="stretch"
                     />
                 </View>
-                <WebView></WebView>
+                <WebView style={{width: 200, height: 400, borderWidth: 2, borderColor: 'white'}} source={ require('../../../assets/html/recaptcha.html') }></WebView>
+                <Text style={{ color: 'white', marginTop: 5 }}>© {currentYear} Leandro Santos de Carvalho.</Text>
+                <Text style={{ color: 'white', marginBottom: 5 }}>Todos os direitos reservados.</Text>
             </ScrollView>
         </SafeAreaView>
     )
