@@ -98,7 +98,13 @@ export default function LoginScreen() {
                                     const { nativeEvent } = syntheticEvent;
                                     console.warn('Erro no carregamento da WebView: ', nativeEvent);
                                 }}
-                                onMessage={(token) => {console.warn('o TOKEN GERADO É: ', token)}}
+                                onMessage={(response) => {
+                                    setGoogleToken(response.nativeEvent.data), 
+                                    console.warn('token => ', response.nativeEvent.data)
+                                    setTimeout(() => {
+                                       console.warn('Depois de esperar 1 segundo, GoogleToken => ', googleToken) 
+                                    }, 3000)
+                                }}
                                 />
 
                         </View>
