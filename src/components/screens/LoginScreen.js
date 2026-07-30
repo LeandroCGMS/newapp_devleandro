@@ -1,7 +1,7 @@
 import { useGlobalContext } from '@/contexts/GlobalContext';
 import { StyleSheet, Text, View, Image, TextInput, ScrollView, TouchableOpacity, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Feather from '@expo/vector-icons/Feather';
 import HomeScreen from '@/components/screens/HomeScreen';
 import { useRouter } from 'expo-router';
@@ -22,6 +22,8 @@ import { WebView, WebViewMessageEvent } from 'react-native-webview';
 // };
 
 const currentYear = new Date().getFullYear();
+var token = null
+
 
 export default function LoginScreen() {
     const { username, password, setUsername, setPassword, user, setUser, homeScreen, setHomeScreen, googleToken, setGoogleToken } = useGlobalContext();
@@ -34,6 +36,19 @@ export default function LoginScreen() {
 
         //return <HomeScreen/>
     }
+    useEffect(() => {
+        console.warn(`Dentro do useEffect, GoogleToken => ${googleToken}`);
+    }, [googleToken])
+    // 1. Crie a referência para a WebView
+    const webViewRef = useRef(null);
+
+    // 2. Função para disparar a função JS do HTML
+    const handleGenerateRecaptcha = () => {
+        if (webViewRef.current) {
+            // Executa a função JavaScript declarada dentro do recaptcha.html
+            webViewRef.current.injectJavaScript('executeRecaptcha(); true;');
+        }
+    };
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView
@@ -82,12 +97,16 @@ export default function LoginScreen() {
                                 >
                                     <Feather style={{}} name={showPassword ? 'eye-off' : 'eye'} size={inputHeight} color="black" />
                                 </TouchableOpacity>
-                                <Button title="TESTE" onPress={() => { router.replace('/(tabs)/thirdscreen'); }} />
+                                <Button title="TESTE" onPress={() => {
+                                    //router.replace('/(tabs)/thirdscreen');
+                                    handleGenerateRecaptcha()
+                                    }} />
                                 <Button color="red" title="Logando com o Google" onPress={() => { }} />
                             </View>
                         </View>
-                        <View style={{display: 'none'}}>
+                        <View style={{ width: 0, height: 0, opacity: 0, position: 'absolute' }}>
                             <WebView style={{ flex: 1, width: 'auto', height: 200, borderWidth: 2, borderColor: 'white', display: 'flex' }}
+                                ref={webViewRef} // <-- Atribua a ref aqui
                                 source={require('../../../assets/html/recaptcha.html')}
                                 onConsoleMessage={(event) => {
                                     const { message, lineNumber, sourceId } = event.nativeEvent;
@@ -99,13 +118,11 @@ export default function LoginScreen() {
                                     console.warn('Erro no carregamento da WebView: ', nativeEvent);
                                 }}
                                 onMessage={(response) => {
-                                    setGoogleToken(response.nativeEvent.data), 
-                                    console.warn('token => ', response.nativeEvent.data)
-                                    setTimeout(() => {
-                                       console.warn('Depois de esperar 1 segundo, GoogleToken => ', googleToken) 
-                                    }, 3000)
+                                    const tokenResponsed = response.nativeEvent.data;
+                                    setGoogleToken(tokenResponsed),
+                                        console.warn('token => ', tokenResponsed)
                                 }}
-                                />
+                            />
 
                         </View>
 

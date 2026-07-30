@@ -9,7 +9,7 @@ export const GlobalProvider = ({ children }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [homeScreen, setHomeScreen] = useState(false)
-  const [googleToken, setGoogleToken] = useState(null)
+  const [googleToken, setGoogleToken] = useState('')
 
   return (
     <GlobalContext.Provider value={{ username, password, setUsername, setPassword, user, setUser, homeScreen, setHomeScreen, googleToken, setGoogleToken }}>
