@@ -66,6 +66,16 @@ eas build --platform android --profile preview
 <br>
 <br>
 
+---
+#30/07/2026
+Bloco experimental para resolver build local incompatível com o POCO X7 PRO, por incompatibilidade de plataformas, 32 e 64 bits.
+```gradle
+// 🟢 ADICIONE ESTE BLOCO AQUI:
+ndk {
+    abiFilters "arm64-v8a", "armeabi-v7a", "x86", "x86_64"
+}
+```
+
 # 27/07/2026
 * Para pegar o Token do Google Recaptcha V3, precisa pegar no site: <span style="color: green;">https://devleandrocgms.online/recaptcha-google</span> e rodar a função <strong style="color: red;">generateGoogleToken()</strong>, com um WebView, para qualquer tipo de requisição ao site, só não para as rotas de ferramentas de terceiros, como o PGAdmin.
 * Está sendo usada a conta validador_web do Google Recaptcha V3 e uma página HTML, para que o aplicativo não fique inoperante, caso meu site fique.
