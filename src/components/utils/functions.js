@@ -1,15 +1,14 @@
 import { SERVER, PATH_JWT } from '@/components/utils/constants'
 import { useGlobalContext } from '@/contexts/GlobalContext';
 
-export function getJWT(username, password) {
-    const { setJWT } = useGlobalContext();
-    //setLoading(true)
+export async function getJWT(username, password, googleToken) {
+    console.warn('>>>>>>>>>>>>>>', username, password, googleToken)
     try {
         const response = await fetch(SERVER + PATH_JWT, { // https://devleandrocgms.online/api-angular/accounts-rest-json/
             method: 'POST', // Ou 'POST', 'PUT', etc.
             headers: {
                 'Content-Type': 'application/json',
-                'tokengoogle': receiveGoogleTokenRecaptcha // FAKE_KEY pode ser usado também
+                'tokengoogle': googleToken // FAKE_KEY pode ser usado também
             },
             body: JSON.stringify({
                 username: username,
@@ -20,16 +19,15 @@ export function getJWT(username, password) {
         if (!response.ok) {
             throw new Error(`Erro: ${response.status}`);
         }
-        setJWT(await response.json())
+        const accessToken = await response.json().data
         return true
     } catch (error) {
-        console.error(`tokenGoogle => ${tokenGoogle}\n\nJWT => ${token}\n\n=====================================================\n\n\n`)
-        console.error(`Depois de conseguir validar usuário e conseguir o JWT, não foi possível obter seus dados da rota específica\n${error}`)
+        console.warn(`tokenGoogle => ${googleToken}\n\n=====================================================\n\n\n`)
+        console.warn(`Depois de conseguir validar usuário e conseguir o JWT, não foi possível obter seus dados da rota específica\n${error}`)
         // showModal(`Depois de conseguir validar usuário, não foi possível obter seus dados. Tente novamente ou contacte o suporte.`)
         // logError(`Depois de conseguir validar usuário e conseguir o JWT, não foi possível obter seus dados da rota específica\n${error}`);
         // console.warn(await getLogs())
         // setLoading(false)
-        setJWT(null)
         return false
     }
 }

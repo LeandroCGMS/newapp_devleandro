@@ -13,6 +13,7 @@ import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
 import WebViewGoogleRecaptcha from '@/components/utils/WebViewGoogleRecaptcha';
 import { handleGenerateRecaptcha } from '@/components/utils/WebViewGoogleRecaptcha';
+import { getJWT } from '@/components/utils/functions';
 
 const currentYear = new Date().getFullYear();
 var token = null
@@ -84,7 +85,7 @@ export default function LoginScreen() {
                                 </TouchableOpacity>
                                 <Button title="TESTE" onPress={() => {
                                     //router.replace('/(tabs)/thirdscreen');
-                                    handleGenerateRecaptcha()
+                                    handleGenerateRecaptcha(getJWT(username, password))
                                 }} />
                                 <Button color="red" title="Logando com o Google" onPress={() => { }} />
                             </View>

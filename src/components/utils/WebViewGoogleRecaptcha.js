@@ -4,7 +4,9 @@ import { useGlobalContext } from '@/contexts/GlobalContext';
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
 
 let webViewRef = null;
-export const handleGenerateRecaptcha = () => {
+var functionReceived = null
+export const handleGenerateRecaptcha = (functionToBeExecuted) => {
+    functionReceived = functionToBeExecuted
     if (webViewRef.current) {
         webViewRef.current.injectJavaScript('executeRecaptcha(); true;');
     }
@@ -27,10 +29,10 @@ export default function WebViewGoogleRecaptcha() {
                     const { nativeEvent } = syntheticEvent;
                     console.warn('Erro no carregamento da WebView: ', nativeEvent);
                 }}
-                onMessage={(response) => {
+                onMessage={async (response) => {
                     const tokenResponsed = response.nativeEvent.data;
-                    setGoogleToken(tokenResponsed)
-                    console.warn('token => ', tokenResponsed)
+                    console.warn(`functionReceived: ${functionReceived} e seu tipo é ${typeof(functionReceived)}\n`, functionReceived)
+                    if (typeof (await functionReceived) === 'function') {await functionReceived(tokenResponsed); } // Chama a função passada como parâmetro com o token}
                 }}
             />
         </View>
