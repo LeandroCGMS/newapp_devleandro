@@ -14,21 +14,13 @@ import { WebView, WebViewMessageEvent } from 'react-native-webview';
 import WebViewGoogleRecaptcha from '@/components/utils/WebViewGoogleRecaptcha';
 import { handleGenerateRecaptcha } from '@/components/utils/WebViewGoogleRecaptcha';
 
-// const handleLogin = async (email, password) => {
-//     try {
-//         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-//         console.log("Usuário logado:", userCredential.user.uid);
-//     } catch (error) {
-//         console.error("Erro no login:", error);
-//     }
-// };
-
 const currentYear = new Date().getFullYear();
 var token = null
 
 
 export default function LoginScreen() {
-    const { username, password, setUsername, setPassword, user, setUser, homeScreen, setHomeScreen, googleToken, setGoogleToken } = useGlobalContext();
+    const { username, password, setUsername, setPassword, user, setUser,
+        homeScreen, setHomeScreen, googleToken, setGoogleToken } = useGlobalContext();
     const [inputHeight, setInputHeight] = useState(0);
     const [showPassword, setShowPassword] = useState(false);
 
