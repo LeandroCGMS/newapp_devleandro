@@ -11,6 +11,8 @@ import { auth } from '../../../config/firebase';
 import * as Google from 'expo-auth-session/providers/google';
 import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
+import WebViewGoogleRecaptcha from '@/components/utils/WebViewGoogleRecaptcha';
+import { handleGenerateRecaptcha } from '@/components/utils/WebViewGoogleRecaptcha';
 
 // const handleLogin = async (email, password) => {
 //     try {
@@ -40,15 +42,6 @@ export default function LoginScreen() {
         console.warn(`Dentro do useEffect, GoogleToken => ${googleToken}`);
     }, [googleToken])
     // 1. Crie a referência para a WebView
-    const webViewRef = useRef(null);
-
-    // 2. Função para disparar a função JS do HTML
-    const handleGenerateRecaptcha = () => {
-        if (webViewRef.current) {
-            // Executa a função JavaScript declarada dentro do recaptcha.html
-            webViewRef.current.injectJavaScript('executeRecaptcha(); true;');
-        }
-    };
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView
@@ -100,32 +93,11 @@ export default function LoginScreen() {
                                 <Button title="TESTE" onPress={() => {
                                     //router.replace('/(tabs)/thirdscreen');
                                     handleGenerateRecaptcha()
-                                    }} />
+                                }} />
                                 <Button color="red" title="Logando com o Google" onPress={() => { }} />
                             </View>
                         </View>
-                        <View style={{ width: 0, height: 0, opacity: 0, position: 'absolute' }}>
-                            <WebView style={{ flex: 1, width: 'auto', height: 200, borderWidth: 2, borderColor: 'white', display: 'flex' }}
-                                ref={webViewRef} // <-- Atribua a ref aqui
-                                source={require('../../../assets/html/recaptcha.html')}
-                                onConsoleMessage={(event) => {
-                                    const { message, lineNumber, sourceId } = event.nativeEvent;
-                                    console.log(`[WebView Console] ${message} (Linha ${lineNumber})`);
-                                }}
-                                // Intercepta erros de rede ou falha ao carregar scripts
-                                onError={(syntheticEvent) => {
-                                    const { nativeEvent } = syntheticEvent;
-                                    console.warn('Erro no carregamento da WebView: ', nativeEvent);
-                                }}
-                                onMessage={(response) => {
-                                    const tokenResponsed = response.nativeEvent.data;
-                                    setGoogleToken(tokenResponsed),
-                                        console.warn('token => ', tokenResponsed)
-                                }}
-                            />
-
-                        </View>
-
+                        <WebViewGoogleRecaptcha />
                     </ScrollView>
                 </View>
                 <View style={styles.divsLogin}>
