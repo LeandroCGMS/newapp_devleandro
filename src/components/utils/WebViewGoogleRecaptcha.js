@@ -19,6 +19,12 @@ export function handleGenerateRecaptcha() {
                 clearInterval(interval);
             }
         });
+        await sleep(5000)
+        if (token === null) {
+            reject(false);
+            clearInterval(interval);
+        }
+
     })
 };
 
