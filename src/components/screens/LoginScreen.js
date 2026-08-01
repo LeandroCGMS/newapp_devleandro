@@ -21,20 +21,13 @@ var token = null
 
 export default function LoginScreen() {
     const { username, password, setUsername, setPassword, user, setUser,
-        homeScreen, setHomeScreen, googleToken, setGoogleToken } = useGlobalContext();
+        homeScreen, setHomeScreen } = useGlobalContext();
     const [inputHeight, setInputHeight] = useState(0);
     const [showPassword, setShowPassword] = useState(false);
 
     console.log('username:', username, 'password:', password);
     const router = useRouter();
-    if (homeScreen) {
-
-        //return <HomeScreen/>
-    }
-    useEffect(() => {
-        console.warn(`Dentro do useEffect, GoogleToken => ${googleToken}`);
-    }, [googleToken])
-    // 1. Crie a referência para a WebView
+    if (homeScreen) {}
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView
@@ -83,9 +76,10 @@ export default function LoginScreen() {
                                 >
                                     <Feather style={{}} name={showPassword ? 'eye-off' : 'eye'} size={inputHeight} color="black" />
                                 </TouchableOpacity>
-                                <Button title="TESTE" onPress={() => {
+                                <Button title="TESTE" onPress={async () => {
                                     //router.replace('/(tabs)/thirdscreen');
-                                    handleGenerateRecaptcha(getJWT(username, password))
+                                    const googleToken = await handleGenerateRecaptcha()
+                                    console.warn(`Dentro do botão TESTE, GoogleToken => ${googleToken}`);
                                 }} />
                                 <Button color="red" title="Logando com o Google" onPress={() => { }} />
                             </View>

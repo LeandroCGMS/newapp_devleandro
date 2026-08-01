@@ -1,6 +1,9 @@
 import { SERVER, PATH_JWT } from '@/components/utils/constants'
 import { useGlobalContext } from '@/contexts/GlobalContext';
 
+
+export const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 export async function getJWT(username, password, googleToken) {
     console.warn('>>>>>>>>>>>>>>', username, password, googleToken)
     try {

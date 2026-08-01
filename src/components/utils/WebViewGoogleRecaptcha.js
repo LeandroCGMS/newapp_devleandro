@@ -2,14 +2,28 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View } from 'react-native';
 import { useGlobalContext } from '@/contexts/GlobalContext';
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
+import { sleep } from '@/components/utils/functions';
 
-let webViewRef = null;
+var webViewRef = null;
 var functionReceived = null
-export const handleGenerateRecaptcha = (functionToBeExecuted) => {
-    functionReceived = functionToBeExecuted
-    if (webViewRef.current) {
-        webViewRef.current.injectJavaScript('executeRecaptcha(); true;');
-    }
+var token = null
+export function handleGenerateRecaptcha() {
+    if (token != null) token = null
+    return new Promise(async (resolve, reject) => {
+        if (webViewRef.current) {
+            webViewRef.current.injectJavaScript('executeRecaptcha(); true;');
+        }
+        while (token === null) {
+            if (token !== null) {
+                resolve(token)
+                break
+            }
+        }
+        await sleep(5000)
+        if (token == null) {
+            reject(new Error('Tempo esgotado'))
+        }
+    })
 };
 
 export default function WebViewGoogleRecaptcha() {
@@ -30,9 +44,10 @@ export default function WebViewGoogleRecaptcha() {
                     console.warn('Erro no carregamento da WebView: ', nativeEvent);
                 }}
                 onMessage={async (response) => {
-                    const tokenResponsed = response.nativeEvent.data;
-                    console.warn(`functionReceived: ${functionReceived} e seu tipo é ${typeof(functionReceived)}\n`, functionReceived)
-                    if (typeof (await functionReceived) === 'function') {await functionReceived(tokenResponsed); } // Chama a função passada como parâmetro com o token}
+                    token = response.nativeEvent.data;
+                    // const tokenResponsed = response.nativeEvent.data;
+                    // console.warn(`functionReceived: ${functionReceived} e seu tipo é ${typeof(functionReceived)}\n`, functionReceived)
+                    // if (typeof (await functionReceived) === 'function') {await functionReceived(tokenResponsed); } // Chama a função passada como parâmetro com o token}
                 }}
             />
         </View>
