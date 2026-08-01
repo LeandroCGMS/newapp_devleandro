@@ -13,16 +13,12 @@ export function handleGenerateRecaptcha() {
         if (webViewRef.current) {
             webViewRef.current.injectJavaScript('executeRecaptcha(); true;');
         }
-        while (token === null) {
+        const interval = setInterval(async () => {
             if (token !== null) {
                 resolve(token)
-                break
+                clearInterval(interval);
             }
-        }
-        await sleep(5000)
-        if (token == null) {
-            reject(new Error('Tempo esgotado'))
-        }
+        });
     })
 };
 
