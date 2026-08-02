@@ -13,7 +13,7 @@ import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
 import WebViewGoogleRecaptcha from '@/components/utils/WebViewGoogleRecaptcha';
 import { handleGenerateRecaptcha } from '@/components/utils/WebViewGoogleRecaptcha';
-import { getJWT } from '@/components/utils/functions';
+import { getJWT, getUserData } from '@/components/utils/functions';
 
 const currentYear = new Date().getFullYear();
 var token = null
@@ -78,8 +78,18 @@ export default function LoginScreen() {
                                 </TouchableOpacity>
                                 <Button title="TESTE" onPress={async () => {
                                     //router.replace('/(tabs)/thirdscreen');
-                                    const googleToken = await handleGenerateRecaptcha()
-                                    console.warn(`Dentro do botão TESTE, GoogleToken => ${googleToken}`);
+                                    const responseGoogle = await handleGenerateRecaptcha() // retorna objeto de resposta do Recaptcha Google V3
+                                    if(!responseGoogle){
+                                        // mensagem de que não foi possível gerar o token do Google Recaptcha, e que o usuário deve tentar novamente
+                                    }
+                                    const jwt = await getJWT(username, password, responseGoogle.nativeEvent.data) // retorna response.json() ou false
+                                    const keyAccess = jwt?.access || null
+                                    // console.warn(`Dentro do botão TESTE, jwt =>\n`, jwt, '    keyAccess => ', keyAccess);
+                                    const newResponseGoogle = await handleGenerateRecaptcha() // retorna objeto de resposta do Recaptcha Google V3
+                                    // console.warn(`Dentro do botão TESTE, newResponseGoogle =>\n`, newResponseGoogle);
+                                    const userData = await getUserData(keyAccess, newResponseGoogle.nativeEvent.data) // retorna response.json() ou false
+                                    console.warn('userData >>>> ', userData)
+                                    setUser({ backendUser: userData, googleUser: null })
                                 }} />
                                 <Button color="red" title="Logando com o Google" onPress={() => { }} />
                             </View>

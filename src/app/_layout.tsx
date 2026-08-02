@@ -14,6 +14,13 @@ export default function RootLayout() {
       {/* Tela de Login */}
       <Stack.Screen name="index" />
 
+      <Stack.Screen
+        name="modal"
+        options={{
+          presentation: 'modal',
+        }}
+      />
+
       {/* Grupo de Abas (será carregado sem mostrar a barra do Stack) */}
       <Stack.Screen name="(tabs)" />
     </Stack>

@@ -1,4 +1,4 @@
-import { SERVER, PATH_JWT } from '@/components/utils/constants'
+import { SERVER, PATH_JWT, PATH_USER_DATA } from '@/components/utils/constants'
 import { useGlobalContext } from '@/contexts/GlobalContext';
 
 
@@ -22,10 +22,34 @@ export async function getJWT(username, password, googleToken) {
         if (!response.ok) {
             throw new Error(`Erro: ${response.status}`);
         }
-        const accessToken = await response.json().data
-        return true
+        return await response.json()
     } catch (error) {
         console.warn(`tokenGoogle => ${googleToken}\n\n=====================================================\n\n\n`)
+        console.warn(`Depois de conseguir validar usuário e conseguir o JWT, não foi possível obter seus dados da rota específica\n${error}`)
+        // showModal(`Depois de conseguir validar usuário, não foi possível obter seus dados. Tente novamente ou contacte o suporte.`)
+        // logError(`Depois de conseguir validar usuário e conseguir o JWT, não foi possível obter seus dados da rota específica\n${error}`);
+        // console.warn(await getLogs())
+        // setLoading(false)
+        return false
+    }
+}
+
+export async function getUserData(keyAccess, googleToken) {
+    try {
+        const response = await fetch(SERVER + PATH_USER_DATA, { // https://devleandrocgms.online/api-angular/accounts-rest-json/
+            method: 'GET', // Ou 'POST', 'PUT', etc.
+            headers: {
+                'Content-Type': 'application/json',
+                'tokengoogle': googleToken,
+                'Authorization': `Bearer ${keyAccess}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro: ${response.status}`);
+        }
+        return await response.json()
+    } catch (error) {
         console.warn(`Depois de conseguir validar usuário e conseguir o JWT, não foi possível obter seus dados da rota específica\n${error}`)
         // showModal(`Depois de conseguir validar usuário, não foi possível obter seus dados. Tente novamente ou contacte o suporte.`)
         // logError(`Depois de conseguir validar usuário e conseguir o JWT, não foi possível obter seus dados da rota específica\n${error}`);

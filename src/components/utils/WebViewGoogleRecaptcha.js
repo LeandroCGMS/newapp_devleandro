@@ -46,7 +46,8 @@ export default function WebViewGoogleRecaptcha() {
                     console.warn('Erro no carregamento da WebView: ', nativeEvent);
                 }}
                 onMessage={async (response) => {
-                    token = response.nativeEvent.data;
+                    // token = response.nativeEvent.data;
+                    token = response
                     // const tokenResponsed = response.nativeEvent.data;
                     // console.warn(`functionReceived: ${functionReceived} e seu tipo é ${typeof(functionReceived)}\n`, functionReceived)
                     // if (typeof (await functionReceived) === 'function') {await functionReceived(tokenResponsed); } // Chama a função passada como parâmetro com o token}
