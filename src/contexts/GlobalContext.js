@@ -11,11 +11,12 @@ export const GlobalProvider = ({ children }) => {
   const [homeScreen, setHomeScreen] = useState(false)
   const [googleToken, setGoogleToken] = useState('')
   const [jwt, setJWT] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   return (
     <GlobalContext.Provider value={{ username, password, setUsername,
      setPassword, user, setUser, homeScreen, setHomeScreen,
-      googleToken, setGoogleToken, jwt, setJWT }}>
+      googleToken, setGoogleToken, jwt, setJWT, loading, setLoading }}>
       {children}
     </GlobalContext.Provider>
   );

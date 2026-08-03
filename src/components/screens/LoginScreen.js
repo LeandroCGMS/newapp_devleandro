@@ -14,6 +14,7 @@ import { WebView, WebViewMessageEvent } from 'react-native-webview';
 import WebViewGoogleRecaptcha from '@/components/utils/WebViewGoogleRecaptcha';
 import { handleGenerateRecaptcha } from '@/components/utils/WebViewGoogleRecaptcha';
 import { getJWT, getUserData } from '@/components/utils/functions';
+import CircularProgress from '@/components/utils/CircularProgress';
 
 const currentYear = new Date().getFullYear();
 var token = null
@@ -21,13 +22,13 @@ var token = null
 
 export default function LoginScreen() {
     const { username, password, setUsername, setPassword, user, setUser,
-        homeScreen, setHomeScreen } = useGlobalContext();
+        homeScreen, setHomeScreen, loading, setLoading } = useGlobalContext();
     const [inputHeight, setInputHeight] = useState(0);
     const [showPassword, setShowPassword] = useState(false);
-
-    console.log('username:', username, 'password:', password);
     const router = useRouter();
-    if (homeScreen) {}
+    if (homeScreen) {
+
+    }
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView
@@ -79,7 +80,7 @@ export default function LoginScreen() {
                                 <Button title="TESTE" onPress={async () => {
                                     //router.replace('/(tabs)/thirdscreen');
                                     const responseGoogle = await handleGenerateRecaptcha() // retorna objeto de resposta do Recaptcha Google V3
-                                    if(!responseGoogle){
+                                    if (!responseGoogle) {
                                         // mensagem de que não foi possível gerar o token do Google Recaptcha, e que o usuário deve tentar novamente
                                     }
                                     const jwt = await getJWT(username, password, responseGoogle.nativeEvent.data) // retorna response.json() ou false
@@ -92,6 +93,7 @@ export default function LoginScreen() {
                                     setUser({ backendUser: userData, googleUser: null })
                                 }} />
                                 <Button color="red" title="Logando com o Google" onPress={() => { }} />
+                                <CircularProgress />
                             </View>
                         </View>
                         <WebViewGoogleRecaptcha />
