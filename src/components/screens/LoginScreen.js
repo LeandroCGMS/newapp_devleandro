@@ -77,28 +77,32 @@ export default function LoginScreen() {
                                 >
                                     <Feather style={{}} name={showPassword ? 'eye-off' : 'eye'} size={inputHeight} color="black" />
                                 </TouchableOpacity>
-                                <Button title="TESTE" onPress={async () => {
-                                    //router.replace('/(tabs)/thirdscreen');
-                                    const responseGoogle = await handleGenerateRecaptcha() // retorna objeto de resposta do Recaptcha Google V3
-                                    if (!responseGoogle) {
-                                        // mensagem de que não foi possível gerar o token do Google Recaptcha, e que o usuário deve tentar novamente
-                                    }
-                                    const jwt = await getJWT(username, password, responseGoogle.nativeEvent.data) // retorna response.json() ou false
-                                    const keyAccess = jwt?.access || null
-                                    // console.warn(`Dentro do botão TESTE, jwt =>\n`, jwt, '    keyAccess => ', keyAccess);
-                                    const newResponseGoogle = await handleGenerateRecaptcha() // retorna objeto de resposta do Recaptcha Google V3
-                                    // console.warn(`Dentro do botão TESTE, newResponseGoogle =>\n`, newResponseGoogle);
-                                    const userData = await getUserData(keyAccess, newResponseGoogle.nativeEvent.data) // retorna response.json() ou false
-                                    console.warn('userData >>>> ', userData)
-                                    setUser({ backendUser: userData, googleUser: null })
-                                }} />
+                                <View style={{ marginBlock: 2 }}>
+                                    <Button title="TESTE" onPress={async () => {
+                                        const googleTokens = []
+                                        googleTokens.push(await handleGenerateRecaptcha()) // retorna objeto de resposta do Recaptcha Google V3
+                                        googleTokens.push(await handleGenerateRecaptcha())
+                                        console.warn('googleTokens >>>> ', googleTokens)
+                                        if (!googleTokens[0]) {
+                                            // mensagem de que não foi possível gerar o token do Google Recaptcha, e que o usuário deve tentar novamente
+                                        }
+                                        setLoading(true)
+                                        const jwt = await getJWT(username, password, googleTokens[0].nativeEvent.data) // retorna response.json() ou false
+                                        const keyAccess = jwt?.access || null
+                                        const userData = await getUserData(keyAccess, googleTokens[1].nativeEvent.data) // retorna response.json() ou false
+                                        setLoading(false)
+                                        console.warn('userData >>>> ', userData)
+                                        setUser({ backendUser: userData, googleUser: null })
+                                        router.replace('/(tabs)/thirdscreen') ? user?.backendUser || user?.googleUser : null
+                                    }} />
+                                </View>
                                 <Button color="red" title="Logando com o Google" onPress={() => { }} />
-                                <CircularProgress />
                             </View>
                         </View>
                         <WebViewGoogleRecaptcha />
                     </ScrollView>
                 </View>
+                <CircularProgress />
                 <View style={styles.divsLogin}>
                     <Image
                         source={require('../../../assets/images/my-logo.png')}
@@ -177,5 +181,8 @@ const styles = StyleSheet.create({
     },
     viewFields: {
         marginBottom: 10
+    },
+    buttons: {
+        margin: 5
     }
 })

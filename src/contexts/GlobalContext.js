@@ -11,7 +11,7 @@ export const GlobalProvider = ({ children }) => {
   const [homeScreen, setHomeScreen] = useState(false)
   const [googleToken, setGoogleToken] = useState('')
   const [jwt, setJWT] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   return (
     <GlobalContext.Provider value={{ username, password, setUsername,

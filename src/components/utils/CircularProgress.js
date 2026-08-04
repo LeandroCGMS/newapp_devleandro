@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
-import { Host, CircularProgressIndicator } from '@expo/ui/jetpack-compose';
+import { Host, CircularProgressIndicator, Text } from '@expo/ui/jetpack-compose';
 import { useGlobalContext } from '@/contexts/GlobalContext';
+
+var altura, largura = 0
 
 export default function CircularProgress() {
     const { width, height } = useWindowDimensions();
@@ -12,29 +14,29 @@ export default function CircularProgress() {
     // Define o tamanho do indicador (largura/altura iguais)
     const TAMANHO_INDICADOR = 150; // Ajuste este valor para o tamanho desejado
 
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: 2,
+            width: 300,
+            height: 300,
+            position: 'absolute',
+            borderRadius: 10,
+            zIndex: 9999,
+            top: (height / 2) - (300 / 2), // Centraliza verticalmente
+            left: (width / 2) - (300 / 2), // Centraliza horizontalmente
+        },
+    });
     return (
-        <Host
-            style={[
-                //StyleSheet.absoluteFillObject, // Ocupa a tela inteira (top:0, left:0, right:0, bottom:0)
-                {
-                    flex: 1,
-                    position: 'absolute',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    zIndex: 999, // Garante que fique por cima de outros elementos
-                },
-            ]}
-        >
+        <Host style={styles.container}>
             <CircularProgressIndicator
-                style={{
-                    width: TAMANHO_INDICADOR,
-                    height: TAMANHO_INDICADOR,
-                    zIndex: 1000,
-                    top: width / 2 - TAMANHO_INDICADOR / 2,
-                    left: height / 2 - TAMANHO_INDICADOR / 2,
-                }}
-                visible={loading}
-                color="blue"
+                visible={true}
+                color="#AD50EC"
+                zIndex={2}
+                size={48}
+                strokeWidth={20}
             />
         </Host>
     );

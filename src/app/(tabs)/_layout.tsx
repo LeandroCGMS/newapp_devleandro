@@ -24,14 +24,6 @@ export default function TabLayout() {
 	return (
 		<Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
 			<Tabs.Screen
-				name="index"
-				options={{
-					title: 'Home',
-					href: null, // 👈 Isso esconde o botão da barra inferior completamente!
-					tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
-				}}
-			/>
-			<Tabs.Screen
 				name="explore"
 				options={{
 					title: 'Explore',

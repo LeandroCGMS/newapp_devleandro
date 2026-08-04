@@ -5,7 +5,6 @@ import { useGlobalContext } from '@/contexts/GlobalContext';
 export const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 export async function getJWT(username, password, googleToken) {
-    console.warn('>>>>>>>>>>>>>>', username, password, googleToken)
     try {
         const response = await fetch(SERVER + PATH_JWT, { // https://devleandrocgms.online/api-angular/accounts-rest-json/
             method: 'POST', // Ou 'POST', 'PUT', etc.
