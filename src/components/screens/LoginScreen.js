@@ -89,7 +89,6 @@ export default function LoginScreen() {
                                             setLoading(true)
                                             googleTokens.push(await handleGenerateRecaptcha()) // retorna objeto de resposta do Recaptcha Google V3
                                             googleTokens.push(await handleGenerateRecaptcha())
-                                            console.warn('googleTokens >>>> ', googleTokens)
                                             if (!googleTokens[0]) {
                                                 // mensagem de que não foi possível gerar o token do Google Recaptcha, e que o usuário deve tentar novamente
                                             }
