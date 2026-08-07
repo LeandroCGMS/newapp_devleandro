@@ -32,6 +32,7 @@ export default function LoginScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView
+                pointerEvents={loading ? 'none' : 'auto'}
                 style={[{ flex: 1, width: '100%', }]}
                 contentContainerStyle={[{ flexGrow: 1, height: '110%' }, styles.container]}
             >
@@ -91,9 +92,9 @@ export default function LoginScreen() {
                                         const keyAccess = jwt?.access || null
                                         const userData = await getUserData(keyAccess, googleTokens[1].nativeEvent.data) // retorna response.json() ou false
                                         setLoading(false)
-                                        console.warn('userData >>>> ', userData)
+                                        console.warn('userData >>>> ', userData, (user?.backendUser !== undefined || user?.googleUser !== undefined))
                                         setUser({ backendUser: userData, googleUser: null })
-                                        router.replace('/(tabs)/thirdscreen') ? user?.backendUser || user?.googleUser : null
+                                        router.replace('/(tabs)/thirdscreen') ? (user?.backendUser !== undefined || user?.googleUser !== undefined) : null
                                     }} />
                                 </View>
                                 <Button color="red" title="Logando com o Google" onPress={() => { }} />
@@ -102,7 +103,6 @@ export default function LoginScreen() {
                         <WebViewGoogleRecaptcha />
                     </ScrollView>
                 </View>
-                <CircularProgress />
                 <View style={styles.divsLogin}>
                     <Image
                         source={require('../../../assets/images/my-logo.png')}
@@ -113,6 +113,7 @@ export default function LoginScreen() {
                 <Text style={{ color: 'white', marginTop: 5 }}>© {currentYear} Leandro Santos de Carvalho.</Text>
                 <Text style={{ color: 'white', marginBottom: 5 }}>Todos os direitos reservados.</Text>
             </ScrollView>
+            <CircularProgress />
         </SafeAreaView>
     )
 }

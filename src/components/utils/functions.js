@@ -29,7 +29,7 @@ export async function getJWT(username, password, googleToken) {
         // logError(`Depois de conseguir validar usuário e conseguir o JWT, não foi possível obter seus dados da rota específica\n${error}`);
         // console.warn(await getLogs())
         // setLoading(false)
-        return false
+        return error
     }
 }
 
@@ -54,6 +54,6 @@ export async function getUserData(keyAccess, googleToken) {
         // logError(`Depois de conseguir validar usuário e conseguir o JWT, não foi possível obter seus dados da rota específica\n${error}`);
         // console.warn(await getLogs())
         // setLoading(false)
-        return false
+        return error
     }
 }
