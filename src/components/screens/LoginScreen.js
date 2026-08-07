@@ -16,6 +16,8 @@ import { handleGenerateRecaptcha } from '@/components/utils/WebViewGoogleRecaptc
 import { getJWT, getUserData } from '@/components/utils/functions';
 import CircularProgress from '@/components/utils/CircularProgress';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import Entypo from '@expo/vector-icons/Entypo';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 const currentYear = new Date().getFullYear();
 var token = null
@@ -99,10 +101,16 @@ export default function LoginScreen() {
                                             setUser({ backendUser: userData, googleUser: undefined })
                                             userData?.error == undefined ? router.replace('/(tabs)/thirdscreen') : null
                                         }} >
-                                            <Text style={styles.textPressable1}>Autenticar no App</Text>
-                                        </TouchableOpacity>
+                                        <Entypo style={{ marginRight: 2 }} name="login" size={24} color="black" />
+                                        <Text style={styles.textPressable1}>Autenticar no App</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.googleButton} onPress={() => {
+
+                                    }} >
+                                        <AntDesign name="google" size={24} color="black" style={{ marginRight: 2 }} />
+                                        <Text style={styles.googleButtonText}>Autenticar com Google</Text>
+                                    </TouchableOpacity>
                                 </View>
-                                <Button color="red" title="Logando com o Google" onPress={() => { }} />
                             </View>
                         </View>
                         <WebViewGoogleRecaptcha />
@@ -192,6 +200,7 @@ const styles = StyleSheet.create({
         margin: 5
     },
     pressable1: {
+        flexDirection: 'row',
         backgroundColor: '#6d0b5d', // Cor padrão do Button no Android
         paddingVertical: 8,
         paddingHorizontal: 16,
@@ -201,8 +210,32 @@ const styles = StyleSheet.create({
     },
     textPressable1: {
         textTransform: 'none', // Desativa a transformação de texto para maiúsculas
-        color: '#FFFFFF',
+        color: 'black',
         fontSize: 14,
         fontWeight: '500',
-    }
+    },
+    googleButton: {
+        alignContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 2,
+        marginBottom: 10,
+        backgroundColor: '#FFFFFF',
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#DDDDDD',
+        elevation: 2, // Sombra para Android
+        shadowColor: '#000', // Sombra para iOS
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+    },
+    googleButtonText: {
+        color: '#333333',
+        fontSize: 16,
+        fontWeight: '600',
+    },
 })
