@@ -1,5 +1,5 @@
 import { useGlobalContext } from '@/contexts/GlobalContext';
-import { StyleSheet, Text, View, Image, TextInput, ScrollView, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, ScrollView, TouchableOpacity, Button, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState, useEffect, useRef } from 'react';
 import Feather from '@expo/vector-icons/Feather';
@@ -15,6 +15,7 @@ import WebViewGoogleRecaptcha from '@/components/utils/WebViewGoogleRecaptcha';
 import { handleGenerateRecaptcha } from '@/components/utils/WebViewGoogleRecaptcha';
 import { getJWT, getUserData } from '@/components/utils/functions';
 import CircularProgress from '@/components/utils/CircularProgress';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const currentYear = new Date().getFullYear();
 var token = null
@@ -79,23 +80,28 @@ export default function LoginScreen() {
                                     <Feather style={{}} name={showPassword ? 'eye-off' : 'eye'} size={inputHeight} color="black" />
                                 </TouchableOpacity>
                                 <View style={{ marginBlock: 2 }}>
-                                    <Button title="TESTE" onPress={async () => {
-                                        const googleTokens = []
-                                        googleTokens.push(await handleGenerateRecaptcha()) // retorna objeto de resposta do Recaptcha Google V3
-                                        googleTokens.push(await handleGenerateRecaptcha())
-                                        console.warn('googleTokens >>>> ', googleTokens)
-                                        if (!googleTokens[0]) {
-                                            // mensagem de que não foi possível gerar o token do Google Recaptcha, e que o usuário deve tentar novamente
-                                        }
-                                        setLoading(true)
-                                        const jwt = await getJWT(username, password, googleTokens[0].nativeEvent.data) // retorna response.json() ou false
-                                        const keyAccess = jwt?.access || null
-                                        const userData = await getUserData(keyAccess, googleTokens[1].nativeEvent.data) // retorna response.json() ou false
-                                        setLoading(false)
-                                        console.warn('userData >>>> ', userData, (user?.backendUser !== undefined || user?.googleUser !== undefined))
-                                        setUser({ backendUser: userData, googleUser: null })
-                                        router.replace('/(tabs)/thirdscreen') ? (user?.backendUser !== undefined || user?.googleUser !== undefined) : null
-                                    }} />
+                                    <TouchableOpacity
+                                        textAllCaps='none'
+                                        uppercase='none'
+                                        style={styles.pressable1}
+                                        onPress={async () => {
+                                            const googleTokens = []
+                                            setLoading(true)
+                                            googleTokens.push(await handleGenerateRecaptcha()) // retorna objeto de resposta do Recaptcha Google V3
+                                            googleTokens.push(await handleGenerateRecaptcha())
+                                            console.warn('googleTokens >>>> ', googleTokens)
+                                            if (!googleTokens[0]) {
+                                                // mensagem de que não foi possível gerar o token do Google Recaptcha, e que o usuário deve tentar novamente
+                                            }
+                                            const jwt = await getJWT(username, password, googleTokens[0].nativeEvent.data) // retorna response.json() ou false
+                                            const keyAccess = jwt?.access || null
+                                            const userData = await getUserData(keyAccess, googleTokens[1].nativeEvent.data) // retorna response.json() ou false
+                                            setLoading(false)
+                                            setUser({ backendUser: userData, googleUser: undefined })
+                                            userData?.error == undefined ? router.replace('/(tabs)/thirdscreen') : null
+                                        }} >
+                                            <Text style={styles.textPressable1}>Autenticar no App</Text>
+                                        </TouchableOpacity>
                                 </View>
                                 <Button color="red" title="Logando com o Google" onPress={() => { }} />
                             </View>
@@ -149,7 +155,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 18,
         fontWeight: 'bold',
-        backgroundColor: 'rgba(0,0,0,0.4)',
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
         paddingHorizontal: 10,
         paddingVertical: 6,
         borderRadius: 6,
@@ -185,5 +191,19 @@ const styles = StyleSheet.create({
     },
     buttons: {
         margin: 5
+    },
+    pressable1: {
+        backgroundColor: '#6d0b5d', // Cor padrão do Button no Android
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderRadius: 4,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    textPressable1: {
+        textTransform: 'none', // Desativa a transformação de texto para maiúsculas
+        color: '#FFFFFF',
+        fontSize: 14,
+        fontWeight: '500',
     }
 })
