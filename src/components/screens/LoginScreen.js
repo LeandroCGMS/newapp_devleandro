@@ -18,12 +18,15 @@ import CircularProgress from '@/components/utils/CircularProgress';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Entypo from '@expo/vector-icons/Entypo';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import getSettersToast from '@/components/utils/ToastComponent';
+import ToastComponent from '@/components/utils/ToastComponent';
 
 const currentYear = new Date().getFullYear();
 var token = null
 
 
 export default function LoginScreen() {
+    const {setType, setText1, setText2} = getSettersToast()
     const { username, password, setUsername, setPassword, user, setUser,
         homeScreen, setHomeScreen, loading, setLoading } = useGlobalContext();
     const [inputHeight, setInputHeight] = useState(0);
@@ -99,7 +102,7 @@ export default function LoginScreen() {
                                             const userData = await getUserData(keyAccess, googleTokens[1].nativeEvent.data) // retorna response.json() ou false
                                             setLoading(false)
                                             setUser({ backendUser: userData, googleUser: undefined })
-                                            userData?.error == undefined ? router.replace('/(tabs)/thirdscreen') : null
+                                            userData?.error == undefined ? router.replace('/(tabs)/thirdscreen') : setType('error') || setText1('Erro de autenticação') || setText2('Usuário ou senha inválidos.')
                                         }} >
                                         <Entypo style={{ marginRight: 2 }} name="login" size={24} color="black" />
                                         <Text style={styles.textPressable1}>Autenticar no App</Text>
@@ -127,6 +130,7 @@ export default function LoginScreen() {
                 <Text style={{ color: 'white', marginBottom: 5 }}>Todos os direitos reservados.</Text>
             </ScrollView>
             <CircularProgress />
+            <ToastComponent />
         </SafeAreaView>
     )
 }
@@ -207,6 +211,8 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         alignItems: 'center',
         justifyContent: 'center',
+        marginBlock: 5,
+        height: 50
     },
     textPressable1: {
         textTransform: 'none', // Desativa a transformação de texto para maiúsculas
