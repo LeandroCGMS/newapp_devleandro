@@ -18,15 +18,13 @@ import CircularProgress from '@/components/utils/CircularProgress';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Entypo from '@expo/vector-icons/Entypo';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import getSettersToast from '@/components/utils/ToastComponent';
-import ToastComponent from '@/components/utils/ToastComponent';
+import { dispararToastSucesso, dispararToastErro } from '@/components/utils/functions';
 
 const currentYear = new Date().getFullYear();
 var token = null
 
 
 export default function LoginScreen() {
-    const {setType, setText1, setText2} = getSettersToast()
     const { username, password, setUsername, setPassword, user, setUser,
         homeScreen, setHomeScreen, loading, setLoading } = useGlobalContext();
     const [inputHeight, setInputHeight] = useState(0);
@@ -52,13 +50,14 @@ export default function LoginScreen() {
                 <View style={styles.divsLogin}>
                     <ScrollView>
                         <View style={[styles.viewFields]}>
-                            <Text style={styles.text}>Nome de Usuário:</Text>
+                            <Text fontSize={12} style={styles.text}>Nome de Usuário:</Text>
                             <TextInput
                                 value={username}
                                 onChangeText={setUsername}
                                 placeholder={`usuario ≠ Usuario ≠ USUARIO`}
                                 maxLength={20}
                                 style={[styles.inputText]}
+                                fontSize={12}
                             />
                         </View>
                         <View style={[styles.viewFields]}>
@@ -76,6 +75,7 @@ export default function LoginScreen() {
                                     secureTextEntry={!showPassword}
                                     autoCapitalize="none"
                                     maxLength={20}
+                                    fontSize={12}
                                 />
                                 <TouchableOpacity
                                     onPress={() => setShowPassword((s) => !s)}
@@ -92,6 +92,12 @@ export default function LoginScreen() {
                                         onPress={async () => {
                                             const googleTokens = []
                                             setLoading(true)
+                                            dispararToastSucesso('Autenticando', 'Aguarde alguns segundos...', 3000)
+                                            if(username?.length < 3 || password?.length < 3) {
+                                                dispararToastErro('Nome de Usuário ou Senha Inválidos', 'Nome de usuário e senha não podem ter menos que 3 caracteres.', 3000)
+                                                setLoading(false)
+                                                return
+                                            }
                                             googleTokens.push(await handleGenerateRecaptcha()) // retorna objeto de resposta do Recaptcha Google V3
                                             googleTokens.push(await handleGenerateRecaptcha())
                                             if (!googleTokens[0]) {
@@ -102,16 +108,16 @@ export default function LoginScreen() {
                                             const userData = await getUserData(keyAccess, googleTokens[1].nativeEvent.data) // retorna response.json() ou false
                                             setLoading(false)
                                             setUser({ backendUser: userData, googleUser: undefined })
-                                            userData?.error == undefined ? router.replace('/(tabs)/thirdscreen') : setType('error') || setText1('Erro de autenticação') || setText2('Usuário ou senha inválidos.')
+                                            userData?.error == undefined ? router.replace('/(tabs)/thirdscreen') : dispararToastErro('Erro ao autenticar', 'Verifique seus dados e tente novamente. Se estiverem corretos, contacte o suporte.', 3000)
                                         }} >
                                         <Entypo style={{ marginRight: 2 }} name="login" size={24} color="black" />
-                                        <Text style={styles.textPressable1}>Autenticar no App</Text>
+                                        <Text fontSize={12} style={styles.textPressable1}>Autenticar no App</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity style={styles.googleButton} onPress={() => {
 
                                     }} >
                                         <AntDesign name="google" size={24} color="black" style={{ marginRight: 2 }} />
-                                        <Text style={styles.googleButtonText}>Autenticar com Google</Text>
+                                        <Text fontSize={12} style={styles.googleButtonText}>Autenticar com Google</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -126,11 +132,10 @@ export default function LoginScreen() {
                         resizeMode="stretch"
                     />
                 </View>
-                <Text style={{ color: 'white', marginTop: 5 }}>© {currentYear} Leandro Santos de Carvalho.</Text>
-                <Text style={{ color: 'white', marginBottom: 5 }}>Todos os direitos reservados.</Text>
+                <Text fontSize={12} style={{ color: 'white', marginTop: 5 }}>© {currentYear} Leandro Santos de Carvalho.</Text>
+                <Text fontSize={12} style={{ color: 'white', marginBottom: 5 }}>Todos os direitos reservados.</Text>
             </ScrollView>
             <CircularProgress />
-            <ToastComponent />
         </SafeAreaView>
     )
 }

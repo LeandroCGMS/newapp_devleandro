@@ -1,5 +1,30 @@
 import { SERVER, PATH_JWT, PATH_USER_DATA } from '@/components/utils/constants'
 import { useGlobalContext } from '@/contexts/GlobalContext';
+import Toast from 'react-native-toast-message';
+
+export const dispararToastSucesso = (text1, text2, visibilityTime = 3000) => {
+    Toast.show({
+        type: 'success',
+        text1: text1,
+        text2: text2,
+        position: 'bottom',
+        visibilityTime: visibilityTime,
+        position: 'top', // 👈 Posição superior
+        topOffset: 50,  // 👈 Distância em pixels em relação ao topo da tela (útil para desviar da StatusBar / Notched area)
+    });
+};
+
+export const dispararToastErro = (text1, text2, visibilityTime = 3000) => {
+    Toast.show({
+        type: 'error',
+        text1: text1,
+        text2: text2,
+        position: 'bottom',
+        visibilityTime: visibilityTime,
+        position: 'top', // 👈 Posição superior
+        topOffset: 50,  // 👈 Distância em pixels em relação ao topo da tela (útil para desviar da StatusBar / Notched area)
+    });
+};
 
 
 export const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -23,7 +48,7 @@ export async function getJWT(username, password, googleToken) {
         }
         return await response.json()
     } catch (error) {
-        return {error: error}
+        return { error: error }
     }
 }
 
@@ -43,6 +68,6 @@ export async function getUserData(keyAccess, googleToken) {
         }
         return await response.json()
     } catch (error) {
-        return {error: error}
+        return { error: error }
     }
 }
