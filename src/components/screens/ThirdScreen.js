@@ -4,15 +4,22 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState } from 'react';
 import Feather from '@expo/vector-icons/Feather';
 import { useRouter } from 'expo-router';
+import LoginScreen from './LoginScreen';
 
 export default function ThirdScreen() {
     const router = useRouter();
+    const [showLogin, setShowLogin] = useState(false);
+    if(!showLogin) {
     return (
         <View style={styles.container}>
             <Text fontSize={12}>Terceira Tela</Text>
-            <Button title="Voltar para Login" onPress={() => { router.replace('/'); }} />
+            <Button title="Voltar para Login" onPress={() => { setShowLogin(true); }} />
         </View>
-    )
+    )} else {
+        return (
+            <LoginScreen />
+        )
+    }
 }
 
 const styles = StyleSheet.create({
