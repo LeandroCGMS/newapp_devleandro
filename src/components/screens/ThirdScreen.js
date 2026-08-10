@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 import Feather from '@expo/vector-icons/Feather';
 import { useRouter } from 'expo-router';
 import LoginScreen from './LoginScreen';
+import { GlobalProvider } from '@/contexts/GlobalContext';
+
 
 export default function ThirdScreen() {
     const router = useRouter();
@@ -12,13 +14,11 @@ export default function ThirdScreen() {
     if(!showLogin) {
     return (
         <View style={styles.container}>
-            <Text fontSize={12}>Terceira Tela</Text>
+            <Text>Terceira Tela</Text>
             <Button title="Voltar para Login" onPress={() => { setShowLogin(true); }} />
         </View>
     )} else {
-        return (
-            <LoginScreen />
-        )
+        router.navigate('/');
     }
 }
 

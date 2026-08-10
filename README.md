@@ -67,7 +67,16 @@ eas build --platform android --profile preview
 <br>
 
 ---
-#30/07/2026
+
+# 09/08/2026
+Finalmente, resolvido problema de fontSize com valor zero/undefined/null do Fabric, com a correção da linha:
+```jsx
+    const [inputHeight, setInputHeight] = useState(24);
+```
+Linha 30 da tela LoginScreen.js
+
+---
+# 30/07/2026
 Bloco experimental para resolver build local incompatível com o POCO X7 PRO, por incompatibilidade de plataformas, 32 e 64 bits.
 ```gradle
 // 🟢 ADICIONE ESTE BLOCO AQUI:

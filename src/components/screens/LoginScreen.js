@@ -27,7 +27,7 @@ var token = null
 export default function LoginScreen() {
     const { username, password, setUsername, setPassword, user, setUser,
         homeScreen, setHomeScreen, loading, setLoading } = useGlobalContext();
-    const [inputHeight, setInputHeight] = useState(0);
+    const [inputHeight, setInputHeight] = useState(24);
     const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
     if (homeScreen) {
@@ -50,14 +50,13 @@ export default function LoginScreen() {
                 <View style={styles.divsLogin}>
                     <ScrollView>
                         <View style={[styles.viewFields]}>
-                            <Text fontSize={12} style={styles.text}>Nome de Usuário:</Text>
+                            <Text style={styles.text}>Nome de Usuário:</Text>
                             <TextInput
                                 value={username}
                                 onChangeText={setUsername}
                                 placeholder={`usuario ≠ Usuario ≠ USUARIO`}
                                 maxLength={20}
                                 style={[styles.inputText]}
-                                fontSize={12}
                             />
                         </View>
                         <View style={[styles.viewFields]}>
@@ -75,7 +74,6 @@ export default function LoginScreen() {
                                     secureTextEntry={!showPassword}
                                     autoCapitalize="none"
                                     maxLength={20}
-                                    fontSize={12}
                                 />
                                 <TouchableOpacity
                                     onPress={() => setShowPassword((s) => !s)}
@@ -111,13 +109,13 @@ export default function LoginScreen() {
                                             userData?.error == undefined ? router.replace('/(tabs)/thirdscreen') : dispararToastErro('Erro ao autenticar', 'Verifique seus dados e tente novamente. Se estiverem corretos, contacte o suporte.', 3000)
                                         }} >
                                         <Entypo style={{ marginRight: 2 }} name="login" size={24} color="black" />
-                                        <Text fontSize={12} style={styles.textPressable1}>Autenticar no App</Text>
+                                        <Text style={styles.textPressable1}>Autenticar no App</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity style={styles.googleButton} onPress={() => {
 
                                     }} >
                                         <AntDesign name="google" size={24} color="black" style={{ marginRight: 2 }} />
-                                        <Text fontSize={12} style={styles.googleButtonText}>Autenticar com Google</Text>
+                                        <Text style={styles.googleButtonText}>Autenticar com Google</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -132,8 +130,8 @@ export default function LoginScreen() {
                         resizeMode="stretch"
                     />
                 </View>
-                <Text fontSize={12} style={{ color: 'white', marginTop: 5 }}>© {currentYear} Leandro Santos de Carvalho.</Text>
-                <Text fontSize={12} style={{ color: 'white', marginBottom: 5 }}>Todos os direitos reservados.</Text>
+                <Text style={{ color: 'white', marginTop: 5 }}>© {currentYear} Leandro Santos de Carvalho.</Text>
+                <Text style={{ color: 'white', marginBottom: 5 }}>Todos os direitos reservados.</Text>
             </ScrollView>
             <CircularProgress />
         </SafeAreaView>
