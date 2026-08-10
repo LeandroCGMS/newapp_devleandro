@@ -2,7 +2,8 @@ import { SERVER, PATH_JWT, PATH_USER_DATA } from '@/components/utils/constants'
 import { useGlobalContext } from '@/contexts/GlobalContext';
 import Toast from 'react-native-toast-message';
 
-export async function obterAnoComRedundancia(setCurrentYearOnline = new Function()) {
+export async function obterAnoComRedundancia(setCurrentYearOnline = new Function(), 
+setError = new Function(), setSuccess = new Function()) {
   const apis = [
     'http://worldtimeapi.org/api/timezone/Etc/UTC',
     'https://timeapi.io/api/time/current/zone?timeZone=UTC',
@@ -21,6 +22,7 @@ export async function obterAnoComRedundancia(setCurrentYearOnline = new Function
         // A TimeAPI traz o ano direto no campo 'year', já a WorldTimeAPI traz no 'datetime'
         const ano = data.year || new Date(data.datetime).getFullYear();
         setCurrentYearOnline(ano);
+        break
         return ano;
       }
     } catch (e) {

@@ -29,7 +29,13 @@ export default function LoginScreen() {
     const { username, password, setUsername, setPassword, user, setUser,
         homeScreen, setHomeScreen, loading, setLoading } = useGlobalContext();
     const [currentYearOnline, setCurrentYearOnline] = useState(null);
-    obterAnoComRedundancia(setCurrentYearOnline)
+    useEffect(() => {
+        setLoading(true)
+        dispararToastSucesso('Obtendo Alguns Dados', 'Aguarde enquanto o spinner girar...', 3000)
+        obterAnoComRedundancia(setCurrentYearOnline).then(() => {
+            setLoading(false)
+        })
+    }, [])
     const [inputHeight, setInputHeight] = useState(24);
     const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
