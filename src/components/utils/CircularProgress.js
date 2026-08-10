@@ -32,6 +32,7 @@ export default function CircularProgress() {
     return (
         <Host style={styles.container}>
             <CircularProgressIndicator
+                title={'Aguarde...'}
                 visible={true}
                 color="#AD50EC"
                 zIndex={2}

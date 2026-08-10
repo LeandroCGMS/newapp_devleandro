@@ -13,20 +13,23 @@ import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
 import WebViewGoogleRecaptcha from '@/components/utils/WebViewGoogleRecaptcha';
 import { handleGenerateRecaptcha } from '@/components/utils/WebViewGoogleRecaptcha';
-import { getJWT, getUserData } from '@/components/utils/functions';
+import { getJWT, getUserData, obterAnoComRedundancia } from '@/components/utils/functions';
 import CircularProgress from '@/components/utils/CircularProgress';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Entypo from '@expo/vector-icons/Entypo';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { dispararToastSucesso, dispararToastErro } from '@/components/utils/functions';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-const currentYear = new Date().getFullYear();
 var token = null
+var currentYear = new Date().getFullYear();
 
 
 export default function LoginScreen() {
     const { username, password, setUsername, setPassword, user, setUser,
         homeScreen, setHomeScreen, loading, setLoading } = useGlobalContext();
+    const [currentYearOnline, setCurrentYearOnline] = useState(null);
+    obterAnoComRedundancia(setCurrentYearOnline)
     const [inputHeight, setInputHeight] = useState(24);
     const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
@@ -48,7 +51,11 @@ export default function LoginScreen() {
                     />
                 </View>
                 <View style={styles.divsLogin}>
-                    <ScrollView>
+                    <ScrollView
+                        showsVerticalScrollIndicator={true} // 👈 Garante que a barra vertical seja exibida
+                        persistentScrollbar={true}          // 👈 NO ANDROID: Mantém a barra visível o tempo todo (sem sumir)
+                        indicatorStyle="white"             // 👈 NO IOS: Escolha 'white' ou 'black' para dar contraste com o fundo
+                    >
                         <View style={[styles.viewFields]}>
                             <Text style={styles.text}>Nome de Usuário:</Text>
                             <TextInput
@@ -91,7 +98,7 @@ export default function LoginScreen() {
                                             const googleTokens = []
                                             setLoading(true)
                                             dispararToastSucesso('Autenticando', 'Aguarde alguns segundos...', 3000)
-                                            if(username?.length < 3 || password?.length < 3) {
+                                            if (username?.length < 3 || password?.length < 3) {
                                                 dispararToastErro('Nome de Usuário ou Senha Inválidos', 'Nome de usuário e senha não podem ter menos que 3 caracteres.', 3000)
                                                 setLoading(false)
                                                 return
@@ -117,6 +124,10 @@ export default function LoginScreen() {
                                         <AntDesign name="google" size={24} color="black" style={{ marginRight: 2 }} />
                                         <Text style={styles.googleButtonText}>Autenticar com Google</Text>
                                     </TouchableOpacity>
+                                    <TouchableOpacity style={[styles.buttonRegister]}>
+                                        <MaterialIcons name="app-registration" size={24} color="black" />
+                                        <Text style={styles.textButtonRegister}>Criar Conta neste App</Text>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                         </View>
@@ -130,7 +141,7 @@ export default function LoginScreen() {
                         resizeMode="stretch"
                     />
                 </View>
-                <Text style={{ color: 'white', marginTop: 5 }}>© {currentYear} Leandro Santos de Carvalho.</Text>
+                <Text style={{ color: 'white', marginTop: 5 }}>© {currentYearOnline} Leandro Santos de Carvalho.</Text>
                 <Text style={{ color: 'white', marginBottom: 5 }}>Todos os direitos reservados.</Text>
             </ScrollView>
             <CircularProgress />
@@ -247,4 +258,19 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '600',
     },
+    buttonRegister: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#36aac7',
+        height: 50,
+        borderRadius: 4,
+        paddingHorizontal: 10,
+    },
+    textButtonRegister: {
+        color: '#000000', // Garante a cor preta sólida
+        fontSize: 16,
+        fontWeight: '600',
+        marginLeft: 8,    // Garante espaço em relação ao ícone
+    }
 })

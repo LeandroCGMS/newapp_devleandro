@@ -10,16 +10,12 @@ import { GlobalProvider } from '@/contexts/GlobalContext';
 
 export default function ThirdScreen() {
     const router = useRouter();
-    const [showLogin, setShowLogin] = useState(false);
-    if(!showLogin) {
     return (
         <View style={styles.container}>
             <Text>Terceira Tela</Text>
-            <Button title="Voltar para Login" onPress={() => { setShowLogin(true); }} />
+            <Button title="Voltar para Login" onPress={() => { router.navigate('/'); }} />
         </View>
-    )} else {
-        router.navigate('/');
-    }
+    )
 }
 
 const styles = StyleSheet.create({
