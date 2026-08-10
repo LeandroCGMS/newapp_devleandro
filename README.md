@@ -60,12 +60,6 @@ eas build --platform android --profile preview
 
 ## 📌 Histórico de Desenvolvimento
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
 ---
 
 # 09/08/2026
