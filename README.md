@@ -63,7 +63,7 @@ eas build --platform android --profile preview
 ---
 
 # 09/08/2026
-Finalmente, resolvido problema de fontSize com valor zero/undefined/null do Fabric, com a correção da linha:
+Resolvido problema de fontSize com valor zero/undefined/null do Fabric, com a correção da linha:
 ```jsx
     const [inputHeight, setInputHeight] = useState(24);
 ```
