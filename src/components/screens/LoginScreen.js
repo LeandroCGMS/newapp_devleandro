@@ -31,7 +31,7 @@ export default function LoginScreen() {
     const [currentYearOnline, setCurrentYearOnline] = useState(null);
     useEffect(() => {
         setLoading(true)
-        dispararToastSucesso('Obtendo Alguns Dados', 'Aguarde enquanto o spinner girar...', 3000)
+        dispararToastSucesso('Obtendo Alguns Dados', 'Aguarde enquanto o spinner gira...', 3000)
         obterAnoComRedundancia(setCurrentYearOnline).then(() => {
             setLoading(false)
         })
