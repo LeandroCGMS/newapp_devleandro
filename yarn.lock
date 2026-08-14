@@ -3069,6 +3069,13 @@ expo-linking@~57.0.4:
     expo-constants "~57.0.7"
     invariant "^2.2.4"
 
+expo-location@~57.0.9:
+  version "57.0.9"
+  resolved "https://registry.yarnpkg.com/expo-location/-/expo-location-57.0.9.tgz#a21631b4f48f88a76e9f001f50616f3816340dd8"
+  integrity sha512-NfTBIgpHDagevd8gz3zSU2dcA+2KjDZPsK8/A57BPKeApcgFzh44QpzYDgSOc01sLNa3DxIsgQSWdSXXpj7IXg==
+  dependencies:
+    "@expo/image-utils" "^0.11.4"
+
 expo-manifests@~57.0.1:
   version "57.0.1"
   resolved "https://registry.yarnpkg.com/expo-manifests/-/expo-manifests-57.0.1.tgz#4596d35f82d65293570fcd8b636b51c5d9696dc4"
