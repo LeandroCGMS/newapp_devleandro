@@ -52,6 +52,7 @@ export default function LoginScreen() {
             setDataWeather(data)
         }).catch((error) => {
             console.error('Erro ao obter clima:', error);
+            dispararToastErro('Erro ao obter clima', 'Não foi possível obter o clima atual. Pode ser erro do servidor do clima ou com sua conexão.', 3000)
         })
         obterAnoComRedundancia(setCurrentYearOnline).then(() => {
             setLoading(false)
