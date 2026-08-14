@@ -18,27 +18,43 @@ import CircularProgress from '@/components/utils/CircularProgress';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Entypo from '@expo/vector-icons/Entypo';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { dispararToastSucesso, dispararToastErro } from '@/components/utils/functions';
+import { dispararToastSucesso, dispararToastErro, pegarCotacaoDolar } from '@/components/utils/functions';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import TempInfoBanner from '@/components/utils/TempInfoBanner';
 
 var token = null
 var currentYear = new Date().getFullYear();
-
 
 export default function LoginScreen() {
     const { username, password, setUsername, setPassword, user, setUser,
         homeScreen, setHomeScreen, loading, setLoading } = useGlobalContext();
     const [currentYearOnline, setCurrentYearOnline] = useState(null);
+    
+    const [inputHeight, setInputHeight] = useState(24);
+    const [showPassword, setShowPassword] = useState(false);
+    const [dolar, setDolar] = useState(null);
+    useEffect(() => {
+        if (dolar) {
+            console.warn(`Dolar veio => )`, dolar)
+        }
+    }, [dolar])
+    const router = useRouter();
     useEffect(() => {
         setLoading(true)
-        dispararToastSucesso('Obtendo Alguns Dados', 'Aguarde enquanto o spinner gira...', 3000)
+        dispararToastSucesso('Obtendo Alguns Dados', 'Quando o spinner gira, você deve aguardar...', 3000)
+        pegarCotacaoDolar(setDolar)
+        // .then((dolar) => {
+        //     // dispararToastSucesso('Cotação do Dólar Obtida', `Compra: R$ ${dolar.bid} | Venda: R$ ${dolar.ask} | Variação: ${dolar.pctChange}% | Última Atualização: ${dolar.create_date}`, 3000)
+        //     console.warn(dolar)
+        // }).catch((error) => {
+        //     // dispararToastErro('Erro ao obter cotação do dólar', 'Verifique sua conexão com a internet e tente novamente.', 3000)
+        //     console.error(error)
+        // })
         obterAnoComRedundancia(setCurrentYearOnline).then(() => {
             setLoading(false)
         })
     }, [])
-    const [inputHeight, setInputHeight] = useState(24);
-    const [showPassword, setShowPassword] = useState(false);
-    const router = useRouter();
+
     if (homeScreen) {
 
     }
@@ -130,7 +146,8 @@ export default function LoginScreen() {
                                         <AntDesign name="google" size={24} color="black" style={{ marginRight: 2 }} />
                                         <Text style={styles.googleButtonText}>Autenticar com Google</Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={[styles.buttonRegister]}>
+                                    <TouchableOpacity style={[styles.buttonRegister]}
+                                        onPress={() => teste(inputHeight)}>
                                         <MaterialIcons name="app-registration" size={24} color="black" />
                                         <Text style={styles.textButtonRegister}>Criar Conta neste App</Text>
                                     </TouchableOpacity>
@@ -147,10 +164,14 @@ export default function LoginScreen() {
                         resizeMode="stretch"
                     />
                 </View>
-                <Text style={{ color: 'white', marginTop: 5 }}>© {currentYearOnline} Leandro Santos de Carvalho.</Text>
+                <Text style={[{ color: 'white', marginTop: 5 }]}>© {currentYearOnline} Leandro Santos de Carvalho.</Text>
                 <Text style={{ color: 'white', marginBottom: 5 }}>Todos os direitos reservados.</Text>
             </ScrollView>
             <CircularProgress />
+            <TempInfoBanner top={200} />
+            <TempInfoBanner top={250} />
+            <TempInfoBanner top={300} />
+            <TempInfoBanner top={350} />
         </SafeAreaView>
     )
 }
