@@ -172,7 +172,7 @@ export default function LoginScreen() {
                 <Text style={{ color: 'white', marginBottom: 5 }}>Todos os direitos reservados.</Text>
             </ScrollView>
             <CircularProgress />
-            {iconWeather && <TempInfoBanner top={200} icon={iconWeather.name} info={`Temperatura: ${dataWeather?.temperatura}°C \n| Velocidade do Vento: ${dataWeather?.velocidadeVento} km/h | Condição: ${iconWeather?.text}`} />}
+            {iconWeather && <TempInfoBanner top={200} icon={iconWeather.name} info={`Temperatura: ${dataWeather?.temperatura}°C \nVelocidade do Vento: ${dataWeather?.velocidadeVento} km/h\nCondição: ${iconWeather?.text}`} />}
             {/* <TempInfoBanner top={250} />
             <TempInfoBanner top={300} />
             <TempInfoBanner top={350} /> */}
