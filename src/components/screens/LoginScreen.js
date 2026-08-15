@@ -173,8 +173,9 @@ export default function LoginScreen() {
             </ScrollView>
             <CircularProgress />
             {iconWeather && <TempInfoBanner top={200} icon={iconWeather.name} info={`Temperatura: ${dataWeather?.temperatura}°C \nVelocidade do Vento: ${dataWeather?.velocidadeVento} km/h\nCondição: ${iconWeather?.text}`} />}
-            {/* <TempInfoBanner top={250} />
-            <TempInfoBanner top={300} />
+            {/* {"USDBRL": {"ask": "5.2238", "bid": "5.222", "code": "USD", "codein": "BRL", "create_date": "2026-08-14 17:59:54", "high": "5.2225", "low": "5.222", "name": "Dólar Americano/Real Brasileiro", "pctChange": "-0.009571", "timestamp": "1786741194", "varBid": "-0.0005"}} */}
+            {dolar?.USDBRL && <TempInfoBanner top={300} info={`Dólar Compra: US$ ${dolar.USDBRL.bid} \nDólar Venda: US$ ${dolar.USDBRL.ask}\nVariação: US$ ${dolar.USDBRL.pctChange}\nMáxima do dia: US$ ${dolar.USDBRL.high}\nMínima do dia: US$ ${dolar.USDBRL.low}\nData de Criação/Registro: ${dolar.USDBRL.create_date}`} />} 
+            {/* <TempInfoBanner top={300} />
             <TempInfoBanner top={350} /> */}
         </SafeAreaView>
     )
