@@ -45,7 +45,7 @@ export default function LoginScreen() {
     useEffect(() => {
         setLoading(true)
         dispararToastSucesso('Obtendo Alguns Dados', 'Quando o spinner gira, você deve aguardar...', 3000) 
-        // pegarCotacaoDolar(setDolar)
+        pegarCotacaoDolar(setDolar)
         obterClimaPorLocalizacao().then((data) => {
             console.warn('dados do clima >>>>', data) // {"codigoClima": 0, "temperatura": 18, "velocidadeVento": 14.5}
             setIconWeather(obterIconeClima(data.codigoClima))
