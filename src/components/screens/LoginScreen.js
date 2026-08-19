@@ -59,13 +59,17 @@ export default function LoginScreen() {
         })
     }, [])
 
+    useEffect(() => {
+        console.info('user mudou => ', user)
+    }, [user])
+
     if (homeScreen) {
 
     }
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView
-                pointerEvents={loading ? 'none' : 'auto'}
+                // pointerEvents={loading ? 'none' : 'auto'}
                 style={[{ flex: 1, width: '100%', }]}
                 contentContainerStyle={[{ flexGrow: 1, height: '110%' }, styles.container]}
             >
@@ -238,7 +242,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         color: 'black',
         textAlign: 'center',
-        fontSize: 12
+        fontSize: 12,
+        zIndez: 9999
     },
     text: {
         color: 'white',

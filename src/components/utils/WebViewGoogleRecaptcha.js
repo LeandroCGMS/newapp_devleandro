@@ -6,24 +6,42 @@ import { sleep } from '@/components/utils/functions';
 
 var webViewRef = null;
 var functionReceived = null
-var token = null
+let token = null
+let tokenListener = null;
+function setToken(novoToken) {
+    token = novoToken;
+
+    if (tokenListener) {
+        tokenListener(token);
+        tokenListener = null;
+    }
+}
 export function handleGenerateRecaptcha() {
     if (token != null) token = null
     return new Promise(async (resolve, reject) => {
+        tokenListener = (novoToken) => {
+            resolve(novoToken);
+        };
         if (webViewRef.current) {
             webViewRef.current.injectJavaScript('executeRecaptcha(); true;');
         }
-        const interval = setInterval(async () => {
-            if (token !== null) {
-                resolve(token)
-                clearInterval(interval);
-            }
-        });
-        await sleep(5000)
+        await sleep(5000);
+
         if (token === null) {
+            tokenListener = null;
             reject(false);
-            clearInterval(interval);
         }
+        // const interval = setInterval(async () => {
+        //     if (token !== null) {
+        //         resolve(token)
+        //         clearInterval(interval);
+        //     }
+        // });
+        // await sleep(5000)
+        // if (token === null) {
+        //     reject(false);
+        //     clearInterval(interval);
+        // }
 
     })
 };
@@ -46,7 +64,7 @@ export default function WebViewGoogleRecaptcha() {
                     console.warn('Erro no carregamento da WebView: ', nativeEvent);
                 }}
                 onMessage={async (response) => {
-                    token = response
+                    setToken(response)
                 }}
             />
         </View>
