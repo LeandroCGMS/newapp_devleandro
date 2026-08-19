@@ -30,7 +30,7 @@ export default function LoginScreen() {
     const { username, password, setUsername, setPassword, user, setUser,
         homeScreen, setHomeScreen, loading, setLoading } = useGlobalContext();
     const [currentYearOnline, setCurrentYearOnline] = useState(null);
-    
+
     const [inputHeight, setInputHeight] = useState(24);
     const [showPassword, setShowPassword] = useState(false);
     const [dolar, setDolar] = useState(null);
@@ -44,7 +44,7 @@ export default function LoginScreen() {
     const router = useRouter();
     useEffect(() => {
         setLoading(true)
-        dispararToastSucesso('Obtendo Alguns Dados', 'Quando o spinner gira, você deve aguardar...', 3000) 
+        // dispararToastSucesso('Obtendo Alguns Dados', 'Quando o spinner gira, você deve aguardar...', 3000)
         pegarCotacaoDolar(setDolar)
         obterClimaPorLocalizacao().then((data) => {
             console.warn('dados do clima >>>>', data) // {"codigoClima": 0, "temperatura": 18, "velocidadeVento": 14.5}
@@ -69,7 +69,6 @@ export default function LoginScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView
-                // pointerEvents={loading ? 'none' : 'auto'}
                 style={[{ flex: 1, width: '100%', }]}
                 contentContainerStyle={[{ flexGrow: 1, height: '110%' }, styles.container]}
             >
@@ -94,6 +93,7 @@ export default function LoginScreen() {
                                 placeholder={`usuario ≠ Usuario ≠ USUARIO`}
                                 maxLength={20}
                                 style={[styles.inputText]}
+                                autoFocus={true}
                             />
                         </View>
                         <View style={[styles.viewFields]}>
@@ -176,9 +176,9 @@ export default function LoginScreen() {
                 <Text style={{ color: 'white', marginBottom: 5 }}>Todos os direitos reservados.</Text>
             </ScrollView>
             <CircularProgress />
-            {iconWeather && <TempInfoBanner top={200} icon={iconWeather.name} info={`Temperatura: ${dataWeather?.temperatura}°C \nVelocidade do Vento: ${dataWeather?.velocidadeVento} km/h\nCondição: ${iconWeather?.text}`} />}
+            {iconWeather && <TempInfoBanner top={20} icon={iconWeather.name} info={`Temperatura: ${dataWeather?.temperatura}°C \nVelocidade do Vento: ${dataWeather?.velocidadeVento} km/h\nCondição: ${iconWeather?.text}`} />}
             {/* {"USDBRL": {"ask": "5.2238", "bid": "5.222", "code": "USD", "codein": "BRL", "create_date": "2026-08-14 17:59:54", "high": "5.2225", "low": "5.222", "name": "Dólar Americano/Real Brasileiro", "pctChange": "-0.009571", "timestamp": "1786741194", "varBid": "-0.0005"}} */}
-            {dolar?.USDBRL && <TempInfoBanner top={300} info={`Dólar Compra: US$ ${dolar.USDBRL.bid} \nDólar Venda: US$ ${dolar.USDBRL.ask}\nVariação: US$ ${dolar.USDBRL.pctChange}\nMáxima do dia: US$ ${dolar.USDBRL.high}\nMínima do dia: US$ ${dolar.USDBRL.low}\nData de Criação/Registro: ${dolar.USDBRL.create_date}`} />} 
+            {dolar?.USDBRL && <TempInfoBanner top={120} info={`Dólar Compra: US$ ${dolar.USDBRL.bid} \nDólar Venda: US$ ${dolar.USDBRL.ask}\nVariação: US$ ${dolar.USDBRL.pctChange}\nMáxima do dia: US$ ${dolar.USDBRL.high}\nMínima do dia: US$ ${dolar.USDBRL.low}\nData de Criação/Registro: ${dolar.USDBRL.create_date}`} />}
             {/* <TempInfoBanner top={300} />
             <TempInfoBanner top={350} /> */}
         </SafeAreaView>

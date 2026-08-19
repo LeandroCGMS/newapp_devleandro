@@ -6,11 +6,10 @@ import { sleep } from '@/components/utils/functions';
 
 var webViewRef = null;
 var functionReceived = null
-let token = null
-let tokenListener = null;
-function setToken(novoToken) {
-    token = novoToken;
-
+var token = null
+var tokenListener = null;
+function setToken(newToken) {
+    token = newToken;
     if (tokenListener) {
         tokenListener(token);
         tokenListener = null;
@@ -19,30 +18,17 @@ function setToken(novoToken) {
 export function handleGenerateRecaptcha() {
     if (token != null) token = null
     return new Promise(async (resolve, reject) => {
-        tokenListener = (novoToken) => {
-            resolve(novoToken);
+        tokenListener = (newToken) => {
+            resolve(newToken);
         };
         if (webViewRef.current) {
             webViewRef.current.injectJavaScript('executeRecaptcha(); true;');
         }
         await sleep(5000);
-
         if (token === null) {
             tokenListener = null;
             reject(false);
         }
-        // const interval = setInterval(async () => {
-        //     if (token !== null) {
-        //         resolve(token)
-        //         clearInterval(interval);
-        //     }
-        // });
-        // await sleep(5000)
-        // if (token === null) {
-        //     reject(false);
-        //     clearInterval(interval);
-        // }
-
     })
 };
 
