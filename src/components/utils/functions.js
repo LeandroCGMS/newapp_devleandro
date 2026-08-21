@@ -2,6 +2,24 @@ import { SERVER, PATH_JWT, PATH_USER_DATA, PATH_USER_CREATE_UPDATE } from '@/com
 import { useGlobalContext } from '@/contexts/GlobalContext';
 import Toast from 'react-native-toast-message';
 import * as Location from 'expo-location';
+import * as FileSystem from 'expo-file-system';
+
+export async function getBase64FromImage(imagePath, imageType) {
+	try {
+		// Lê o arquivo no caminho especificado e converte para base64
+		const base64String = await FileSystem.readAsStringAsync(imagePath, {
+			encoding: FileSystem.EncodingType.Base64,
+		});
+
+		const base64WithPrefix = `data:${imageType};base64,${base64String}`;
+		console.log('Base64 com prefixo dinâmico: ', base64WithPrefix);
+		return base64WithPrefix;
+	} catch (error) {
+		console.error('Erro ao converter imagem para base64:', error);
+		logError(`\n\n${getNow()}\nErro ao converter imagem para base64: ${error.stack}`);
+		return null;
+	}
+}
 
 export async function obterClimaPorLocalizacao() {
     try {
@@ -263,4 +281,18 @@ export function createObservable(initialValue) {
             };
         }
     };
+}
+
+async function getBase64FromImage(imagePath, imageType) {
+	try {
+		// Lê o arquivo no caminho especificado e converte para base64
+		const base64String = await RNFS.readFile(imagePath, 'base64');
+		const base64WithPrefix = `data:${imageType};base64,${base64String}`;
+		console.log('Base64 com prefixo dinâmico: ', base64WithPrefix);
+		return base64WithPrefix;
+	} catch (error) {
+		console.error('Erro ao converter imagem para base64:', error);
+		logError(`\n\n${getNow()}\nErro ao converter imagem para base64: ${error.stack}`)
+		return null;
+	}
 }
