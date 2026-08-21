@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Animated, Text, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function TempInfoBanner({ top = 200, left = 20, right = 20, icon='logo-usd', info = '' }) {
+export default function TempInfoBanner({ top = 200, left = 20, right = 20, icon='logo-usd', info = '', color='#36aac7' }) {
 	const styles = StyleSheet.create({
 		bannerContainer: {
 			position: 'absolute', // Não ocupa espaço no fluxo do layout
