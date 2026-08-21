@@ -185,7 +185,7 @@ export async function pegarCotacaoDolar(setDolar = new Function()) {
 }
 
 var URL_CREATE_UPDATE = SERVER + PATH_USER_CREATE_UPDATE
-async function createUser(formDataOrJSON, setLoading, tokengoogle) {
+export async function createUser(formDataOrJSON, setLoading, tokengoogle) {
     var response, json
     try {
         response = await fetch(URL_CREATE_UPDATE, {
@@ -211,7 +211,7 @@ export function getNow() {
     return String('\n\nData e horário atual: ' + new Date().toLocaleString())
 }
 
-async function updateUser(formData, setLoading, tokengoogle, dataJWT) {
+export async function updateUser(formData, setLoading, tokengoogle, dataJWT) {
     var response, json
     try {
         // __DEV__ ? URL = 'http://10.0.2.3:9001/api-angular/accounts-rest-json/' : URL = 'https://devleandrocgms.online/api-angular/accounts-rest-json/'
