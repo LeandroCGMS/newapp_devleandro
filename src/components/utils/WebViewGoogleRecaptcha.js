@@ -5,9 +5,9 @@ import { WebView, WebViewMessageEvent } from 'react-native-webview';
 import { sleep } from '@/components/utils/functions';
 
 var webViewRef = null;
-var functionReceived = null
 var token = null
 var tokenListener = null;
+
 function setToken(newToken) {
     token = newToken;
     if (tokenListener) {
@@ -15,6 +15,7 @@ function setToken(newToken) {
         tokenListener = null;
     }
 }
+
 export function handleGenerateRecaptcha() {
     if (token != null) token = null
     return new Promise(async (resolve, reject) => {
