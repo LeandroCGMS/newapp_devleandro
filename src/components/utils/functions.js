@@ -207,7 +207,7 @@ async function createUser(formDataOrJSON, setLoading, tokengoogle) {
 
 }
 
-function getNow() {
+export function getNow() {
     return String('\n\nData e horário atual: ' + new Date().toLocaleString())
 }
 
