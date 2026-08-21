@@ -233,3 +233,34 @@ async function updateUser(formData, setLoading, tokengoogle, dataJWT) {
         return { error: error }
     }
 }
+
+export function createObservable(initialValue) {
+    let value = initialValue;
+    const listeners = [];
+
+    return {
+        get value() {
+            return value;
+        },
+
+        set value(newValue) {
+            value = newValue;
+
+            listeners.forEach(callback => {
+                callback(newValue);
+            });
+        },
+
+        subscribe(callback) {
+            listeners.push(callback);
+
+            return () => {
+                const index = listeners.indexOf(callback);
+
+                if (index !== -1) {
+                    listeners.splice(index, 1);
+                }
+            };
+        }
+    };
+}
