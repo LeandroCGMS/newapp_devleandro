@@ -17,6 +17,7 @@ export async function pickImage() {
     console.log(result.assets[0].uri); 
     return result.assets[0].uri;
   }
+  return false
 }
 
 export async function getBase64FromImage(imagePath, imageType) {
@@ -31,7 +32,7 @@ export async function getBase64FromImage(imagePath, imageType) {
 		return base64WithPrefix;
 	} catch (error) {
 		console.error('Erro ao converter imagem para base64:', error);
-		logError(`\n\n${getNow()}\nErro ao converter imagem para base64: ${error.stack}`);
+		// logError(`\n\n${getNow()}\nErro ao converter imagem para base64: ${error.stack}`);
 		return null;
 	}
 }
