@@ -67,7 +67,7 @@ export default function TempInfoBanner({ top = 200, left = 20, right = 20, icon=
 	return (
 		<Animated.View style={[styles.bannerContainer, { opacity: fadeAnim }]}>
 			<View style={styles.item}>
-				<Ionicons name={icon} size={16} color="#36aac7" />
+				<Ionicons name={icon} size={16} color={color} />
 				<Text style={styles.text}>{info}</Text>
 			</View>
 			{/* <View style={styles.divider} />
