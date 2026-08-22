@@ -4,6 +4,17 @@ import Toast from 'react-native-toast-message';
 import * as Location from 'expo-location';
 import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
+import { File } from 'expo-file-system';
+
+/*
+    const file = new File(uri);
+    file.base64();
+    file.text();
+    file.bytes();
+    file.copy();
+    file.move();
+    file.delete();
+*/
 
 export async function pickImage() {
   // Abre a galeria do celular
@@ -14,27 +25,28 @@ export async function pickImage() {
 
   if (!result.canceled) {
     // Aqui está o caminho (Path/URI) da imagem selecionada
-    console.log(result.assets[0].uri); 
+    console.log('URI da imagem selecionada >>> ', result.assets[0].uri); 
     return result.assets[0].uri;
   }
   return false
 }
 
-export async function getBase64FromImage(imagePath, imageType) {
-	try {
-		// Lê o arquivo no caminho especificado e converte para base64
-		const base64String = await FileSystem.readAsStringAsync(imagePath, {
-			encoding: FileSystem.EncodingType.Base64,
-		});
+export async function getBase64FromImage(imagePath, imageType) { // imagePath = uri
+    try {
+        const file = new File(imagePath);
 
-		const base64WithPrefix = `data:${imageType};base64,${base64String}`;
-		console.log('Base64 com prefixo dinâmico: ', base64WithPrefix);
-		return base64WithPrefix;
-	} catch (error) {
-		console.error('Erro ao converter imagem para base64:', error);
-		// logError(`\n\n${getNow()}\nErro ao converter imagem para base64: ${error.stack}`);
-		return null;
-	}
+        const base64String = await file.base64();
+
+        const base64WithPrefix = `data:${imageType};base64,${base64String}`;
+
+        console.log('Base64 com prefixo dinâmico:', base64WithPrefix);
+
+        return base64WithPrefix;
+
+    } catch (error) {
+        console.error('Erro ao converter imagem para base64:', error);
+        return null;
+    }
 }
 
 export async function obterClimaPorLocalizacao() {

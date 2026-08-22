@@ -18,7 +18,7 @@ import CircularProgress from '@/components/utils/CircularProgress';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Entypo from '@expo/vector-icons/Entypo';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { dispararToastSucesso, dispararToastErro, pegarCotacaoDolar, obterClimaPorLocalizacao, obterIconeClima } from '@/components/utils/functions';
+import { dispararToastSucesso, dispararToastErro, pegarCotacaoDolar, obterClimaPorLocalizacao, obterIconeClima, getBase64FromImage, createObservable, pickImage } from '@/components/utils/functions';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import TempInfoBanner from '@/components/utils/TempInfoBanner';
 
