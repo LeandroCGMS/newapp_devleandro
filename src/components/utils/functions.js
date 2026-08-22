@@ -3,6 +3,21 @@ import { useGlobalContext } from '@/contexts/GlobalContext';
 import Toast from 'react-native-toast-message';
 import * as Location from 'expo-location';
 import * as FileSystem from 'expo-file-system';
+import * as ImagePicker from 'expo-image-picker';
+
+export async function pickImage() {
+  // Abre a galeria do celular
+  let result = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ['images'],
+    quality: 1,
+  });
+
+  if (!result.canceled) {
+    // Aqui está o caminho (Path/URI) da imagem selecionada
+    console.log(result.assets[0].uri); 
+    return result.assets[0].uri;
+  }
+}
 
 export async function getBase64FromImage(imagePath, imageType) {
 	try {
